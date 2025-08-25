@@ -1,0 +1,645 @@
+---
+title: "Summary statistics"
+subtitle: "Plant Protection Level assessment National Biodiversity Assessment 2025"
+author: "Lize von Staden"
+date: last-modified
+format: 
+  html:
+    embed-resources: true
+    html-table-processing: none
+toc: true
+editor: visual
+---
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: false
+#| warning: false
+
+# Some R code for setting up processes for use later in the document
+# This code needs to run when rendering, but it does not need to display
+
+library(dbx)               # For postgres database connection
+library(DBI)               # For interacting with postgres data
+library(dplyr)             # For general data wrangling
+library(terra)             # For working with spatial data
+library(gpkg)              # For reading spatial data in gpkg format
+library(rnaturalearth)     # For world vector map data
+library(rnaturalearthdata) # For world vector map data
+library(nbaR)              # For displaying tables and graphs in NBA style
+library(ggplot2)           # For other plots
+library(ggspatial)         # Tools for map plots
+
+var_current_assessment_id <- 2
+
+source("db-connection.R")
+source("function-calculate-protection-level.R")
+
+pa_file_path <- Sys.getenv("PA_DATA_PATH")
+
+# ---- CHUNK 1: Species per PL Category ----
+
+assessment_query <- paste0("SELECT s.species_id, a.number_pas, a.total_habitat_pas, a.total_population_pas, a.total_localities_pas, a.protectionscore_no_effectiveness,
+  a.protectioncategory_no_effectiveness, pl1.protectionweight as protectionweight_no_effectiveness,
+  a.protectionscore, a.protectioncategory, pl2.protectionweight,
+  t.timepoint_year, a.assessment_id, a.timepoint_id
+FROM speciesdata.tblplassessment a
+INNER JOIN speciesdata.tblspecies s ON a.species_id = s.species_id
+INNER JOIN speciesdata.refassessmenttimepoints t ON a.assessment_id = t.assessment_id AND a.timepoint_id = t.timepoint_id
+INNER JOIN speciesdata.refprotectionlevel pl1 ON a.protectioncategory_no_effectiveness = pl1.protectioncategory
+INNER JOIN speciesdata.refprotectionlevel pl2 ON a.protectioncategory = pl2.protectioncategory
+WHERE a.assessment_id = ", var_current_assessment_id)
+
+assessment <- dbGetQuery(db, assessment_query)
+
+species_per_category <- assessment %>% group_by(timepoint_year, protectioncategory) %>% 
+                                        summarise(number_of_species = n()) %>% 
+                        tidyr::pivot_wider(names_from = timepoint_year, 
+                                           values_from = number_of_species)
+
+species_per_category$protectioncategory <- factor(species_per_category$protectioncategory, 
+                                                  levels = c("Well Protected", "Moderately Protected",
+                                                             "Poorly Protected", "Not Protected"))
+
+species_per_category <- species_per_category %>% arrange(protectioncategory) %>% rename(`Protection category` = protectioncategory)
+
+# ---- CHUNK 2: Changes in Protection Level ----
+
+category_changes <- assessment %>% select(species_id, timepoint_year, 
+                                          protectioncategory, protectionweight) %>% 
+                                    tidyr::pivot_wider(names_from = timepoint_year,
+                                                       values_from = c(protectioncategory,
+                                                                       protectionweight)) %>% 
+                                    filter(protectioncategory_2017 != protectioncategory_2024)
+
+number_species_category_change <- nrow(category_changes)
+percentage_species_category_change <- as.integer((number_species_category_change/900)*100)
+
+category_changes_summary <- category_changes %>% group_by(protectioncategory_2017, protectionweight_2017, protectioncategory_2024, protectionweight_2024) %>% 
+                            summarise(numberspecies = n()) %>% ungroup() %>% 
+                            mutate(change = if_else(protectionweight_2024 < protectionweight_2017, "improvement", "deterioration")) %>% select(protectioncategory_2017, protectioncategory_2024, numberspecies, change)
+
+category_changes_summary$protectioncategory_2017 <- factor(category_changes_summary$protectioncategory_2017, 
+                                                  levels = c("Well Protected", "Moderately Protected",
+                                                             "Poorly Protected", "Not Protected"))
+
+category_changes_summary <- category_changes_summary %>% arrange(change, protectioncategory_2017) %>% 
+  rename(`Protection category 2017` = protectioncategory_2017, `Protection category 2024` = protectioncategory_2024, `Number of species` = numberspecies, Change = change)
+
+number_species_improve <- category_changes_summary %>% filter(Change == "improvement") %>% summarise(sum(`Number of species`))
+number_species_improve <- as.integer(number_species_improve)
+
+number_species_deteriorate <- category_changes_summary %>% filter(Change == "deterioration") %>% summarise(sum(`Number of species`))
+number_species_deteriorate <- as.integer(number_species_deteriorate)
+
+# ---- CHUNK 3: Protected area effectiveness ----
+
+# Which protected areas are the species with deteriorating PL in?
+# Get list of species
+species_deteriorate <- category_changes %>% filter(protectionweight_2017 < protectionweight_2024)
+
+# Get species x PA data from the database
+query_species_pa <- paste0("SELECT p.assessment_id, p.species_id, p.pa_id, p.pa_section_id, p.pa_cluster_id, e.pa_name, p.pa_effectiveness, r.effectiveness_score, p.timepoint_id, p.area_habitat_pa, p.population_pa, p.localities_pa, p.presence_pa, p.presence_cluster
+                          FROM speciesdata.tblspeciesinpa p 
+                          INNER JOIN speciesdata.tblpaeffectiveness e
+                                ON p.assessment_id = e.assessment_id AND
+                                   p.timepoint_id = e.timepoint_id AND
+                                   p.pa_id = e.pa_id AND
+                                   p.pa_section_id = e.pa_section_id AND
+                                   p.pa_cluster_id = e.pa_cluster_id
+                          INNER JOIN speciesdata.refeffectiveness r ON
+                          p.pa_effectiveness = r.effectiveness_id
+                          WHERE p.assessment_id = ", var_current_assessment_id)
+
+species_pa <- dbGetQuery(db, query_species_pa)
+
+species_pa_present <- species_pa %>% filter(presence_pa == 1 | presence_cluster == 1)
+
+# Find the pas that these species are in that are not fully effective for 2024
+species_deteriorate_pa <- species_pa_present %>% filter(species_id %in% species_deteriorate$species_id) %>% filter(pa_effectiveness != 3) %>% filter(timepoint_id == 3)
+
+# The 2024 PA layer has a column indicating which PAs changed effectiveness since 2017
+
+pa_layer_name <- "pas-2024"
+pa_file <- "pas-2024-2025-assessment.gpkg"
+pa_file_path <- file.path(pa_file_path, pa_file)
+  
+pa_conn <- gpkg_read(pa_file_path, connect = TRUE)
+pa <- gpkg_vect(pa_conn, pa_layer_name)
+
+# Get the attributes of this layer
+pa_attributes <- as.data.frame(pa)
+
+pa_effectiveness_change <- pa_attributes %>% select(PA_ID, PA_Sec_ID, Cluster_ID, effectiveness_change)
+
+# Join to species x pa data
+species_deteriorate_pa <- left_join(species_deteriorate_pa, pa_effectiveness_change,
+                                    by = c("pa_id" = "PA_ID", 
+                                           "pa_section_id" = "PA_Sec_ID", 
+                                           "pa_cluster_id" = "Cluster_ID"))
+
+# Get the list of PAs causing deterioration and number of species in each
+
+pa_where_pl_deterioration <- species_deteriorate_pa %>% 
+                                filter(effectiveness_change == "deterioration") %>% 
+                                group_by(pa_name) %>% 
+                                summarise(number_of_species = n_distinct(species_id))
+
+number_pa_where_pl_deterioration <- nrow(pa_where_pl_deterioration)
+
+# Filter the pa map to the PAs where PL deteriorated
+pa_deteriorate <- pa %>% filter(PA_name %in% pa_where_pl_deterioration$pa_name)
+pa_deteriorate <- aggregate(pa_deteriorate, by =  "PA_name")
+
+
+
+# ---- CHUNK 4: Improved Protection Level ----
+
+# Species improved PL and why
+species_improve <- category_changes %>% filter(protectionweight_2017 > protectionweight_2024) %>% select(species_id)
+
+# Build df to compare PA data changes between 2017 and 2024 for species that improved
+assessment_comparison <- assessment %>% select(-c(assessment_id, timepoint_id)) %>% 
+                                        tidyr::pivot_wider(names_from = timepoint_year,
+                                                           values_from = 2:11) %>% 
+                                        filter(species_id %in% species_improve$species_id)
+
+# Assign reasons for improvement
+assessment_comparison <- assessment_comparison %>% 
+                          mutate(reason_for_improvement =
+            case_when(number_pas_2024 > number_pas_2017 | total_habitat_pas_2024 > total_habitat_pas_2017 ~ "expansion",
+                      number_pas_2024 == number_pas_2017 & protectioncategory_no_effectiveness_2017 == protectioncategory_no_effectiveness_2024 ~ "effectiveness improvement",
+                                             TRUE ~ "check"))
+
+number_species_improved_effectiveness <- assessment_comparison %>% filter(reason_for_improvement == "effectiveness improvement") %>% summarise(number_of_species = n())
+number_species_improved_effectiveness <- as.integer(number_species_improved_effectiveness)
+
+# Which PAs contributed to better PL categories due to effectiveness increases
+# Make a list of the species
+species_improve_effectiveness_only <- assessment_comparison %>% filter(reason_for_improvement == "effectiveness improvement")
+
+# Find the PAs where they occur
+# Find the pas that these species are in that are not fully effective for 2024
+species_improve_pa <- species_pa_present %>% filter(species_id %in% species_improve_effectiveness_only$species_id) %>% filter(timepoint_id == 3)
+
+# Find which of these PAs actually increased effectiveness between 2017 and 2024
+# This data is in pa (the spatial data)
+pa_effectiveness_improve <- pa_attributes %>% filter(effectiveness_change == "improvement") %>% select(PA_ID, PA_Sec_ID, Cluster_ID, effectiveness_change)
+
+# Join with species x pa
+species_improve_pa <- inner_join(species_improve_pa, pa_effectiveness_improve, 
+                                 by = c("pa_id" = "PA_ID", 
+                                           "pa_section_id" = "PA_Sec_ID", 
+                                           "pa_cluster_id" = "Cluster_ID"))
+
+# Calculate number of species per PA
+pa_where_pl_improve <-  species_improve_pa %>% group_by(pa_name) %>% 
+                                summarise(number_of_species = n_distinct(species_id))
+
+number_pa_where_pl_improve <- nrow(pa_where_pl_improve)
+
+
+
+
+# ---- CHUNK 5: SPI changes ----
+
+# Calculate index
+spi <- assessment %>% group_by(timepoint_year) %>% 
+                      summarise(`Effectiveness not considered` = sum(protectionweight_no_effectiveness),
+                                `Effectiveness considered` = sum(protectionweight)) %>% 
+                        tidyr::pivot_longer(cols = 2:3, names_to = "index",
+                                            values_to = "index_value") %>% 
+                        mutate(index_value = 1-(index_value/(900*3)))
+
+# Index values with effectiveness
+spi_2024_with_effectiveness <- spi %>% filter(timepoint_year == 2024,
+                                              index == "Effectiveness considered") %>% select(index_value)
+spi_2024_with_effectiveness <- as.numeric(round(spi_2024_with_effectiveness, 2))
+
+spi_2017_with_effectiveness <- spi %>% filter(timepoint_year == 2017,
+                                              index == "Effectiveness considered") %>% select(index_value)
+spi_2017_with_effectiveness <- as.numeric(round(spi_2017_with_effectiveness, 2))
+
+# Index values without effectiveness
+spi_2024_without_effectiveness <- spi %>% filter(timepoint_year == 2024,
+                                              index == "Effectiveness not considered") %>% select(index_value)
+spi_2024_without_effectiveness <- as.numeric(round(spi_2024_without_effectiveness, 2))
+
+spi_2017_without_effectiveness <- spi %>% filter(timepoint_year == 2017,
+                                              index == "Effectiveness not considered") %>% select(index_value)
+spi_2017_without_effectiveness <- as.numeric(round(spi_2017_without_effectiveness, 2))
+
+# Differences
+difference_2017_2024 <- (spi_2024_with_effectiveness - spi_2017_with_effectiveness)*100
+difference_effectiveness_2017 <- (spi_2017_without_effectiveness - spi_2017_with_effectiveness)*100
+difference_effectiveness_2024 <- (spi_2024_without_effectiveness - spi_2024_with_effectiveness)*100
+
+# Number of species impacted by effectiveness
+species_impacted_by_effectiveness <- assessment %>% select(species_id, timepoint_year,
+                                                           protectioncategory_no_effectiveness,
+                                                           protectioncategory) %>% 
+                                     filter(protectioncategory_no_effectiveness != protectioncategory) %>% 
+  group_by(timepoint_year) %>% summarise(number_of_species = n())
+
+# 2017
+species_impacted_by_effectiveness_2017 <- species_impacted_by_effectiveness %>% filter(timepoint_year == 2017) %>% select(number_of_species)
+species_impacted_by_effectiveness_2017 <- as.integer(species_impacted_by_effectiveness_2017)
+percentage_species_impacted_by_effectiveness_2017 <- round((species_impacted_by_effectiveness_2017/900)*100)
+
+# 2024
+species_impacted_by_effectiveness_2024 <- species_impacted_by_effectiveness %>% filter(timepoint_year == 2024) %>% select(number_of_species)
+species_impacted_by_effectiveness_2024 <- as.integer(species_impacted_by_effectiveness_2024)
+percentage_species_impacted_by_effectiveness_2024 <- round((species_impacted_by_effectiveness_2024/900)*100)
+
+
+
+
+
+# ---- CHUNK 6: New PA contributions to SPI changes ----
+
+# Which are the new protected areas
+pa_new <- pa_attributes %>% filter(effectiveness_change == "new") %>% 
+                            select(PA_ID, PA_Sec_ID, Cluster_ID, PA_name, effectiveness_change)
+
+# Which are new sections and which are entirely new PAs
+sections_per_pa <- pa_attributes %>% group_by(PA_name) %>% summarise(number_of_sections = n()) %>% ungroup()
+
+new_sections_per_pa <- pa_new %>% group_by(PA_name) %>% 
+  summarise(number_of_new_sections = n()) %>% ungroup()
+
+pa_expansion_2017_2024 <- left_join(sections_per_pa, new_sections_per_pa, by = "PA_name")
+pa_expansion_2017_2024 <- pa_expansion_2017_2024 %>% filter(!is.na(number_of_new_sections)) %>% 
+                          mutate(new = if_else(number_of_new_sections == number_of_sections, "new PA", "new section"))
+
+number_new_pas <- pa_expansion_2017_2024 %>% filter(new == "new PA") %>% summarise(count = n())
+number_new_pas <- as.integer(number_new_pas)
+number_new_pa_sections <- pa_expansion_2017_2024 %>% filter(new == "new section") %>% summarise(count = n())
+number_new_pa_sections <- as.integer(number_new_pa_sections)
+
+# Which of them have species in them that increased protection level
+species_per_new_pa_name <- species_pa_present %>% 
+                  filter(timepoint_id == 3, species_id %in% species_improve$species_id) %>% 
+                  group_by(pa_name) %>% 
+                  summarise(number_of_species = n_distinct(species_id)) %>% 
+                  inner_join(pa_expansion_2017_2024, by = c("pa_name" = "PA_name")) %>% 
+                  mutate(index_without_pa = 0)
+
+# Get species targets from database
+query_targets <- paste0("SELECT species_id, population_target, area_target, subpopulation_target FROM speciesdata.tbltargets WHERE assessment_id = ", var_current_assessment_id)
+
+targets <- dbGetQuery(db, query_targets)
+
+# Calculate pa contributions to targets with effectiveness for 2024 pas
+species_pa_contributions_to_targets <- species_pa_present %>% 
+                                        filter(timepoint_id == 3) %>% 
+                                        mutate(area_habitat_pa = area_habitat_pa*effectiveness_score,
+                                        population_pa = population_pa*effectiveness_score,
+                                        localities_pa = localities_pa*effectiveness_score) %>% 
+                                        left_join(pa_new, by = c("pa_id" = "PA_ID",
+                                                                 "pa_section_id" = "PA_Sec_ID",
+                                                                 "pa_cluster_id" = "Cluster_ID",
+                                                                 "pa_name" = "PA_name"))
+
+
+
+# The PL calculation also needs a timepoint input, create one
+query_time_points <- paste0("SELECT assessment_id, timepoint_id, timepoint_year FROM speciesdata.refassessmenttimepoints WHERE assessment_id = ", var_current_assessment_id)
+assessment_time_points <- dbGetQuery(db, query_time_points)
+
+pa_contributions_time_point <- assessment_time_points %>% filter(timepoint_id == 3)
+
+# Loop through each of the pas in species_per_new_pa
+# Filter this PA out of species_pa
+# Calculate PL index
+
+for(i in species_per_new_pa_name$pa_name){
+          current_pa <- species_pa_contributions_to_targets %>% filter(pa_name == i & effectiveness_change == "new")
+          pa_drop <- anti_join(species_pa_contributions_to_targets, current_pa,
+                               by = c("pa_id", "pa_section_id", "pa_cluster_id"))
+          
+          # Calculate protectionscores
+          species_target_scores <- calculate_protection_level(
+                                        pa_contributions_time_point,
+                                        targets,
+                                        pa_drop)
+          
+          # Add category weights
+          species_target_scores <- species_target_scores %>% 
+              mutate(protectionweight = case_when(
+                            protectionscore<5 ~ 3,
+                            protectionscore>= 5 & protectionscore <50 ~ 2,
+                            protectionscore>= 50 & protectionscore <100 ~ 1,
+                            protectionscore>= 100 ~ 0,
+                            TRUE ~ NA))
+          drop_index <- 1-(sum(species_target_scores$protectionweight)/(900*3))
+          
+          # Add it to pa table
+          species_per_new_pa_name <- species_per_new_pa_name %>%
+                                      mutate(index_without_pa = 
+                                               if_else(pa_name == i, 
+                                                       drop_index,                                                                        index_without_pa))
+}
+ 
+# Compare to SPI 2024
+spi_2024 <- spi %>% filter(timepoint_year == 2024, index == "Effectiveness considered") %>%
+                      select(index_value)
+spi_2024 <- as.numeric(spi_2024)
+
+species_per_new_pa_name <- species_per_new_pa_name %>% mutate(spi_2024 = spi_2024,
+                                                              difference = (spi_2024 - index_without_pa)*100)
+
+new_pa_contributions_to_index <- species_per_new_pa_name %>% filter(difference != 0) %>% 
+                                  mutate(pa_name = if_else(new == "new section",
+                                                           paste0(pa_name, " (new section)"),
+                                                                  pa_name),
+                                         difference = round(difference, 4)) %>% 
+                                  select(pa_name, number_of_species, difference) %>% 
+                                  arrange(desc(difference)) %>% 
+                                  rename(`New protected area` = pa_name,
+                                         `Number of species improving PL` = number_of_species,
+                                         `Difference to index (%)` = difference)
+
+number_new_pa_contribution_to_index <- nrow(new_pa_contributions_to_index)
+
+
+# ---- CHUNK 7: Impact of survey efforts ----
+
+# Calculate protection level including all PAs with habitat intersects (regardless of presence confirmed)
+# Set habitat, population and locality counts to include effectiveness
+
+species_pa_effectiveness <- species_pa %>% mutate(area_habitat_pa = area_habitat_pa*effectiveness_score,
+                                                  population_pa = population_pa*effectiveness_score,
+                                                  localities_pa = localities_pa*effectiveness_score)
+
+pl_all_pas <- calculate_protection_level(assessment_time_points,
+                                         targets,
+                                         species_pa_effectiveness)
+
+pl_all_pas <- pl_all_pas %>% select(assessment_id, timepoint_id, timepoint_year, species_id, protectioncategory) %>% 
+                             rename(protectioncategory_allpas = protectioncategory)
+
+pl_all_pas_comparison <- assessment %>% 
+                          select(assessment_id, timepoint_id, timepoint_year, 
+                                 species_id, protectioncategory, protectionweight) %>% 
+                          inner_join(pl_all_pas, by = c("assessment_id", 
+                                                        "timepoint_id", 
+                                                        "timepoint_year", 
+                                                        "species_id")) %>% 
+                          mutate(protectionweight_allpas = case_when(
+                                                              protectioncategory_allpas == "Not Protected" ~ 3,
+                                                              protectioncategory_allpas == "Poorly Protected" ~ 2,
+                                                              protectioncategory_allpas == "Moderately Protected" ~ 1,
+                                                              protectioncategory_allpas == "Well Protected" ~ 0,
+                                                              TRUE ~ NA))
+
+pl_all_pas_2024_different_category <- pl_all_pas_comparison %>% 
+                                        filter(timepoint_year == 2024 & protectioncategory != protectioncategory_allpas)
+
+number_of_species_unconfirmed_different_category <- nrow(pl_all_pas_2024_different_category)
+
+# In which PAs are these unconfirmed species?
+unconfirmed_species_pas <- species_pa %>% filter(timepoint_id == 3) %>% 
+                                          inner_join(pl_all_pas_2024_different_category, by = "species_id") %>% 
+                                          filter(presence_pa == 0 & presence_cluster == 0) %>% 
+                                          group_by(pa_name) %>% 
+                                          summarise(number_of_species = n_distinct(species_id))
+
+# Are they mostly new or old PAs?
+unconfirmed_species_pas <- left_join(unconfirmed_species_pas, pa_expansion_2017_2024, by = c("pa_name" = "PA_name")) %>% 
+                            select(pa_name, number_of_species, new) %>% 
+                            mutate(new = if_else(is.na(new), "established PA", new))
+
+number_of_pas_with_unconfirmed_species <- nrow(unconfirmed_species_pas)
+number_of_new_pas_with_unconfirmed_species <- unconfirmed_species_pas %>% filter(new == "new PA") 
+number_of_new_pas_with_unconfirmed_species <- nrow(number_of_new_pas_with_unconfirmed_species)
+
+# What would the SPI be if all species were confirmed
+pl_all_pas_comparison_2024 <- pl_all_pas_comparison %>% filter(timepoint_year == 2024)
+spi_all_confirmed_2024 <- 1- (sum(pl_all_pas_comparison_2024$protectionweight_allpas)/(900*3))
+
+pl_all_pas_comparison_2017 <- pl_all_pas_comparison %>% filter(timepoint_year == 2017)
+spi_all_confirmed_2017 <- 1- (sum(pl_all_pas_comparison_2017$protectionweight_allpas)/(900*3))
+
+all_confirmed_spi_difference <- (spi_all_confirmed_2024 - spi_all_confirmed_2017)*100
+spi_all_confirmed_2024_actual_difference <- (spi_all_confirmed_2024 - spi_2024)*100
+spi_all_confirmed_2024_actual_difference <- round(spi_all_confirmed_2024_actual_difference,1)
+
+spi_all_confirmed_2024_round <- round(spi_all_confirmed_2024, 2)
+
+
+```
+
+## Key messages
+
+-   Protected area expansion between 2017 and 2024 resulted in an increase in the number of Well Protected species and a decrease in the number of Not Protected species
+
+-   The Species Protection Index (SPI) for plants increased by `r difference_2017_2024`% between 2017 and 2024
+
+-   Newly proclaimed Mountain Zebra-Camdeboo Protected Environment, Gamsberg Nature Reserve, and Orange River Mouth Nature Reserve contributed most to progress on the SPI
+
+-   The ineffectiveness of some protected areas in mitigating pressures on plant species continue to impact progress on the Species Protection Index: effectiveness concerns reduced the 2024 index score by `r difference_effectiveness_2024`%
+
+-   Deterioration in management effectiveness in `r number_pa_where_pl_deterioration` protected areas led to a decrease in Protection Level category for `r number_species_deteriorate` species
+
+-   Better survey efforts to confirm presence of species in protected areas could potentially boost the 2024 index score by `r spi_all_confirmed_2024_actual_difference`%
+
+## Number of species per protection level category
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+gt::gt(species_per_category) %>% nba_tbl_theme() %>% gt::cols_align(align = "left", 
+                                                                    columns = `Protection category`)
+
+```
+
+The number of Well Protected species increased between 2017 and 2024, and the number of Not Protected species decreased. There were only small changes among the species in the Poorly Protected and Moderately Protected categories.
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+barplot_dat <- assessment %>% group_by(timepoint_year, protectioncategory) %>% 
+                                        summarise(number_of_species = n()) %>% 
+                        tidyr::pivot_wider(names_from = protectioncategory, 
+                                           values_from = number_of_species) %>% 
+                        rename(Year = timepoint_year) %>% ungroup()
+
+nba_plot(barplot_dat, `Year`, 2:5, CHRT = "bar", NUM = TRUE, LAB = "Percentage of species",
+         SAVE = NULL)
+
+```
+
+## Changes in protection level
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+
+
+gt::gt(category_changes_summary) %>% nba_tbl_theme() %>% gt::cols_align(align = "center", 
+                                                                    columns = `Number of species`)
+
+
+```
+
+Between 2017 and 2024 `r number_species_category_change` (`r percentage_species_category_change`%) species changed protection level categories. Protection level improved for most (`r number_species_improve`) of these, but deteriorated for `r number_species_deteriorate` species. For all `r number_species_deteriorate` species changes in protection level were due to deterioration in protected area effectiveness between 2017 and 2024. Protected area deproclamations had no effect. These species occur in `r number_pa_where_pl_deterioration` protected areas, mainly in the Western and Northern Cape.
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+# Make a plot showing PAs where effectiveness changed
+# Get a base map of South African from naturalearth
+
+sa_provinces <- ne_states(country = "South Africa", returnclass = "sf")
+sa_provinces <- vect(sa_provinces)
+sa_provinces <- project(sa_provinces, crs(pa))
+
+# This map includes the PEI, we want to exclude them
+sa_provinces <- disagg(sa_provinces)
+# Get the extent of the PA map as a polygon
+ext <- hull(pa, type = "rectangle")
+sa_provinces <- crop(sa_provinces, ext)
+
+# Build up the plot from the different layers
+plot(sa_provinces, col = "grey90", border = "grey90", axes = FALSE)
+plot(pa, col = "darkseagreen", border = NA, add = TRUE)
+plot(pa_deteriorate, col = "red3", border = NA, add = TRUE)
+plot(sa_provinces, col = NA, border = "grey40", add = TRUE)
+legend("bottom", 
+       legend = c("Species with deteriorating PL", "Other protected areas"), 
+       fill = c("red3", "darkseagreen"), 
+       border = NA,
+       bty = "n", 
+       cex = 0.8, inset = c(0, -0.1), xpd = TRUE)
+
+```
+
+The protected areas with the most species with decreased protection level are Namaqua National Park, Akkerendam Nature Reserve, and Richtersveld National Park. In the Namaqua National Park and Richtersveld National Park, localised endemic succulent species are impacted by plant poaching. Akkerendam Nature Reserve has no management in place, and expert contributors rated its effectiveness in mitigating pressures on species as poor.
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+pa_deterioration_table <- pa_where_pl_deterioration %>% arrange(desc(number_of_species)) %>% 
+                          rename(`Protected area` = pa_name, `Number of species with deterioraring PL` = number_of_species)
+
+gt::gt(pa_deterioration_table) %>% nba_tbl_theme()
+
+```
+
+For the `r number_species_improve` species with improved protection level, `r number_species_improved_effectiveness` improved solely due to increases in protected area effectiveness. The rest improved due to a combination of protected area expansion and increasing protected area effectiveness.
+
+Management improvement between 2017 and 2024 in `r number_pa_where_pl_improve` protected areas reduced pressures on plant species enough to result in protection level category improvements for at least one species. The protected areas where effectiveness improvements had the greatest impact are Goegap Nature Reserve, Langeberg-Wes Mountain Catchment Area, Matroosberg Mountain Catchment Area, Langeberg-East Mountain Catchment Area, and Werner Frehse Nature Reserve. In Goegap Nature Reserve better management, monitoring, and security resulted in no incidences of poaching within the last 1.5 years. Better fire management and some alien invasive plant clearing improved effectiveness in sections of the Langeberg and Matroosberg Mountain Catchment Areas. Werner Frehse Nature Reserve was rated as fair in 2017, but in 2024, expert contributors noted no major pressures on plants, mainly due to ongoing alien invasive plant clearing.
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+pa_improvement_table <- pa_where_pl_improve %>% filter(number_of_species > 1) %>% 
+                        arrange(desc(number_of_species)) %>% 
+                        rename(`Protected areas with effectiveness improvement` = pa_name, `Number of species impacted` = number_of_species)
+
+gt::gt(pa_improvement_table) %>% nba_tbl_theme()
+
+```
+
+In both cases of protected area effectiveness improvements and deterioration, the number of species impacted gives a relative indication of the difference changes in effectiveness is making, because the plant Protection Level assessment is based on a random sample of 900 species, rather than a comprehensive assessment of all South African indigenous plant species.
+
+## Changes in the Species Protection Index
+
+The Species Protection Index (SPI) combines the protection level categories of all assessed plant species into a single statistic that can be tracked over time. In 2019 a target was set to improve the Species Protection Index by 5% by 2025. The index can also be used to quantify the impact of protected area effectiveness, by comparing protection level assessments that consider protected area effectiveness to assessments that do not.
+
+### Changes between 2017 and 2024
+
+The SPI increased by `r difference_2017_2024`% between 2017 and 2024, thus not meeting the 5% target. The index value changed from `r spi_2017_with_effectiveness` in 2017 to `r spi_2024_with_effectiveness` in 2024.
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+ggplot(spi, aes(x=timepoint_year, y = index_value)) +
+  geom_line(aes(group = index, linetype = index)) +
+  geom_point(pch=21, size=3, aes(fill=index)) +
+  scale_fill_manual(values=c("black", "white")) +
+          scale_y_continuous(limits = c(0,1)) +
+  ylab("Plant Protection Index") + xlab(NULL) +
+   theme(panel.background = element_rect(colour = "black", fill = NA),
+                panel.grid.major.x = element_line(colour = "light grey", linetype = "dotted"),
+                axis.text.y = element_text(size = 10),
+                axis.text.x = element_text(size = 10),
+                axis.title.y = element_text(size = 12),
+                legend.position="top",
+                legend.key = element_rect(fill = NA, colour = NA),
+                legend.title = element_blank(),
+                legend.text = element_text(size = 11),
+                legend.direction = "vertical",
+                aspect.ratio=1.4)
+
+```
+
+### The impact of protected area effectiveness on the index
+
+Protected areas that are not fully effective in mitigating pressures on plant species lead to a decrease in those protected areas' contributions towards meeting species conservation targets. In some cases, this results in species being assessed in lower protection level categories than if all protected areas where they occur were fully effective.
+
+In 2017, `r species_impacted_by_effectiveness_2017` (`r percentage_species_impacted_by_effectiveness_2017`%) species were downgraded at least one category due to insufficient protected area effectiveness. In 2024, this number improved to `r species_impacted_by_effectiveness_2024` (`r percentage_species_impacted_by_effectiveness_2024`% of species), but is still causing a substantial difference (`r difference_effectiveness_2024`%) in the index score.
+
+### New protected areas contributing the most to increasing the protection index for plants
+
+Between 2017 and 2024 `r number_new_pas` new protected areas were declared, and new sections were added to `r number_new_pa_sections` existing protected areas. `r number_new_pa_contribution_to_index` new protected areas/new protected area sections made positive contributions towards improving the plant Protection Index. In order of contribution, they are as follows:
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+gt::gt(new_pa_contributions_to_index) %>% nba_tbl_theme() %>% 
+                    gt::cols_align(align = "center",                                                                    columns = c(`Number of species improving PL`,
+                                `Difference to index (%)`))
+
+```
+
+## The impact of survey effort on protection level
+
+Protected areas contribute to species' protection level score only when species have been confirmed present within protected areas. Many species have potential habitat in more protected areas than those currently contributing to their protection level scores, but their presence in these protected areas has not yet been confirmed.
+
+For the 2024 assessment, `r number_of_species_unconfirmed_different_category` species could potentially be assessed in a higher protection level category if their presence could be confirmed in all protected areas with potential suitable habitat, and the plant protection index could be as high as `r spi_all_confirmed_2024_round` (a `r spi_all_confirmed_2024_actual_difference`% increase).
+
+These species occur in `r number_of_pas_with_unconfirmed_species` protected areas, `r number_of_new_pas_with_unconfirmed_species` of which are newly proclaimed protected areas. Newly proclaimed protected areas and protected area sections where there are potential suitable habitat for the most unconfirmed species are:
+
+```{r}
+#| echo: false
+#| eval: true
+#| include: true
+#| warning: false
+
+unconfirmed_species_pas_table <- unconfirmed_species_pas %>% filter(new != "established PA" & number_of_species >1) %>% 
+                                  arrange(desc(number_of_species)) %>% 
+                                mutate(pa_name = if_else(new == "new section", 
+                                                         paste0(pa_name, " (new section)"), pa_name)) %>% 
+                                select(pa_name, number_of_species) %>% 
+                                rename(`New protected area` = pa_name, 
+                                       `Number of unconfirmed species` = number_of_species)
+
+gt::gt(unconfirmed_species_pas_table) %>% nba_tbl_theme() 
+
+```
