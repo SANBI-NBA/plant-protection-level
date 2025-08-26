@@ -76,7 +76,7 @@ print_table <- gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
                                   ),
                                 locations = cells_body(rows = 4))
 
-gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../..", "images"))
+gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../..", "images"), , expand = 200)
 
 ```
 
@@ -103,7 +103,7 @@ South Africa has more than 20 000 indigenous plant species, which makes calculat
 
 [^7]: Baillie, J. E. M., B. Collen, R. Amin, H. R. Akcakaya, S. H. M. Butchart, N. Brummitt, T. R. Meagher, M. Ram, C. Hilton-Taylor, and G. M. Mace. 2008. Toward monitoring global biodiversity. Conservation Letters 1:18-26.
 
-This repository documents the process of calculating Protection Level for plants, including data preparation steps. The process is coded in R, and scripts for each step in the process are stored in the folder [workflow](/workflow). Further technical documentation on setting conservation targets for plants, the application of protected area effectiveness in the assessment, and controlling for non-genuine Protection Level changes when the indicator is calculated across multiple time points can be found at (link still to be added).
+This repository documents the process of calculating Protection Level for the plant sample, including data preparation steps. The process is coded in R, and scripts for each step in the process are stored in the folder [workflow](/workflow). Further technical documentation on setting conservation targets for plants, the application of protected area effectiveness in the assessment, and controlling for non-genuine Protection Level changes when the indicator is calculated across multiple time points can be found at (link still to be added).
 
 ## Recommended citation
 
