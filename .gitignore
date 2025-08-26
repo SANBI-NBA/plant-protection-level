@@ -45,7 +45,10 @@ rsconnect/
 *.csv
 *.gpkg
 *.html
+*.tif
 
 # Other folders
 **/data/
 **/*_files/
+**/.quarto/
+.Rproj.user
