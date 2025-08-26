@@ -43,7 +43,7 @@ variables are contained within relevant scripts.
 <tbody>
 <tr>
 <td><a
-href="../../workflow/apply-pa-effectiveness-x-species.R">apply-pa-effectiveness-x-species.R</a></td>
+href="apply-pa-effectiveness-x-species.R">apply-pa-effectiveness-x-species.R</a></td>
 <td>Assessment</td>
 <td>This script transfers general protected area effectiveness as
 provided by expert contributors from the PLAD’s protected areas table
