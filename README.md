@@ -34,7 +34,8 @@ their conservation target
 
 Table 1
 
-![Protection Level categories](images/pl_categories.png)
+: Protection Level categories ![Protection Level
+categories](images/pl_categories.png)
 
 </div>
 
@@ -76,9 +77,9 @@ plant Species Protection Level indicator.
 This repository documents the process of calculating Protection Level
 for the plant sample, including data preparation steps. The process is
 coded in R, and scripts for each step in the process are stored in the
-folder [workflow](.\workflow). Further technical documentation on
-setting conservation targets for plants, the application of protected
-area effectiveness in the assessment, and controlling for non-genuine
+folder [workflow](workflow/). Further technical documentation on setting
+conservation targets for plants, the application of protected area
+effectiveness in the assessment, and controlling for non-genuine
 Protection Level changes when the indicator is calculated across
 multiple time points can be found at (link still to be added).
 

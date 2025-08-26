@@ -57,7 +57,8 @@ poaching or overgrazing.</td>
 </ul></td>
 </tr>
 <tr>
-<td>assessment-sense-checks.R</td>
+<td><a
+href="assessment-sense-checks.R">assessment-sense-checks.R</a></td>
 <td>Assessment</td>
 <td>A script containing various logical tests for Protection Level
 assessment results, to detect potential assessment errors.</td>
@@ -67,7 +68,8 @@ assessment results, to detect potential assessment errors.</td>
 </ul></td>
 </tr>
 <tr>
-<td>calculate-protection-level.R</td>
+<td><a
+href="calculate-protection-level.R">calculate-protection-level.R</a></td>
 <td>Assessment</td>
 <td>The main assessment script. It summarises species x pa data, and
 then calculates Protection Level without and with the consideration of
@@ -79,7 +81,7 @@ effectiveness for each time point in the current assessment.</td>
 </ul></td>
 </tr>
 <tr>
-<td>db-connection.R</td>
+<td><a href="db-connection.R">db-connection.R</a></td>
 <td>Supporting</td>
 <td>Script for connecting to the PLAD.</td>
 <td><ul>
@@ -87,7 +89,7 @@ effectiveness for each time point in the current assessment.</td>
 </ul></td>
 </tr>
 <tr>
-<td>fetch-inat-occurrences.R</td>
+<td><a href="fetch-inat-occurrences.R">fetch-inat-occurrences.R</a></td>
 <td>Data preparation</td>
 <td>This script fetches the latest research grade occurrence records for
 species assessed as under-protected in the previous assessment from
@@ -99,7 +101,8 @@ iNaturalist via an API call.</td>
 </ul></td>
 </tr>
 <tr>
-<td>fetch-plant-survey-app-plotlist.R</td>
+<td><a
+href="fetch-plant-survey-app-plotlist.R">fetch-plant-survey-app-plotlist.R</a></td>
 <td>Data preparation</td>
 <td>The Plant Survey App allows for field-based density observations of
 sampled plant species to be reported directly to the plant Protection
@@ -112,7 +115,8 @@ each species recorded.</td>
 </ul></td>
 </tr>
 <tr>
-<td>function-calculate-protection-level.R</td>
+<td><a
+href="function-calculate-protection-level.R">function-calculate-protection-level.R</a></td>
 <td>Supporting</td>
 <td>Basic function for taking summarised species x protected area data,
 comparing it against targets, and calculating Protection Level scores
@@ -120,7 +124,7 @@ and categories.</td>
 <td></td>
 </tr>
 <tr>
-<td>import-data-to-docker.R</td>
+<td><a href="import-data-to-docker.R">import-data-to-docker.R</a></td>
 <td>Supporting</td>
 <td>A generic script for importing any data in csv format into a
 Docker-based PostgreSQL database</td>
@@ -130,7 +134,7 @@ Docker-based PostgreSQL database</td>
 </ul></td>
 </tr>
 <tr>
-<td>prepare-map-data.R</td>
+<td><a href="prepare-map-data.R">prepare-map-data.R</a></td>
 <td>Data preparation</td>
 <td>A script for reviewing and updating input variables for species’
 suitable habitat maps. Species that may need map updates are identified,
@@ -143,7 +147,8 @@ preferences for creating suitable habitat models.</td>
 </ul></td>
 </tr>
 <tr>
-<td>process-2025-pa-effectiveness-expert-contributions.R</td>
+<td><a
+href="process-2025-pa-effectiveness-expert-contributions.R">process-2025-pa-effectiveness-expert-contributions.R</a></td>
 <td>Data preparation</td>
 <td>In 2025, a process was followed for the first time where protected
 area management experts from national and provincial conservation
@@ -155,7 +160,7 @@ file that can be joined to spatial protected areas data.</td>
 </ul></td>
 </tr>
 <tr>
-<td>process-landcover.R</td>
+<td><a href="process-landcover.R">process-landcover.R</a></td>
 <td>Data preparation</td>
 <td>A script for processing 7-class land cover data used in ecological
 condition assessments to a 2-class (natural/not natural) version for use
@@ -166,7 +171,7 @@ in the plant Protection Level assessment.</td>
 </ul></td>
 </tr>
 <tr>
-<td>process-rl-data.R</td>
+<td><a href="process-rl-data.R">process-rl-data.R</a></td>
 <td>Data preparation</td>
 <td>Processing plant SRLI data snapshot extracted from the plant Red
 List database. This script assumes that PLAD taxonomy has already been
@@ -179,7 +184,8 @@ for integration into the PLAD.</td>
 </ul></td>
 </tr>
 <tr>
-<td>produce-suitable-habitat-maps.R</td>
+<td><a
+href="produce-suitable-habitat-maps.R">produce-suitable-habitat-maps.R</a></td>
 <td>Data preparation</td>
 <td>Script for generating suitable habitat maps for plant species.
 Suitable habitat maps are the most widely used input variables for
@@ -193,7 +199,7 @@ landforms)</p></li>
 </ul></td>
 </tr>
 <tr>
-<td>qc-occurrence-data.R</td>
+<td><a href="qc-occurrence-data.R">qc-occurrence-data.R</a></td>
 <td>Data preparation</td>
 <td>Script for verifying occurrence records against suitable habitat
 maps. Occurrence records that are not within a 10 km distance of
@@ -210,7 +216,8 @@ other verification processes.</td>
 </ul></td>
 </tr>
 <tr>
-<td>set-pa-effectiveness-2025-assessment.R</td>
+<td><a
+href="set-pa-effectiveness-2025-assessment.R">set-pa-effectiveness-2025-assessment.R</a></td>
 <td>Data preparation</td>
 <td>An archival script documenting how protected area effectiveness was
 determined for the 2025 plant Protection Level assessment. This script
@@ -229,7 +236,7 @@ SAPAD</p></li>
 </ul></td>
 </tr>
 <tr>
-<td>set-species-targets.R</td>
+<td><a href="set-species-targets.R">set-species-targets.R</a></td>
 <td>Data preparation</td>
 <td>Script for setting plant species conservation targets based on their
 known or inferred population size.</td>
@@ -239,7 +246,8 @@ known or inferred population size.</td>
 </ul></td>
 </tr>
 <tr>
-<td>spatial-analysis-species-x-pa-area.R</td>
+<td><a
+href="spatial-analysis-species-x-pa-area.R">spatial-analysis-species-x-pa-area.R</a></td>
 <td>Assessment</td>
 <td>Spatial analysis to calculate protected areas’ contribution to
 area-based conservation targets.</td>
@@ -253,7 +261,8 @@ assessment</p></li>
 </ul></td>
 </tr>
 <tr>
-<td>spatial-analysis-species-x-pa-localities.R</td>
+<td><a
+href="spatial-analysis-species-x-pa-localities.R">spatial-analysis-species-x-pa-localities.R</a></td>
 <td>Assessment</td>
 <td>Spatial analysis to calculate protected areas’ contribution to
 subpopulation-based conservation targets.</td>
@@ -264,7 +273,8 @@ subpopulation-based conservation targets.</td>
 </ul></td>
 </tr>
 <tr>
-<td>spatial-analysis-species-x-pa-population.R</td>
+<td><a
+href="spatial-analysis-species-x-pa-population.R">spatial-analysis-species-x-pa-population.R</a></td>
 <td>Assessment</td>
 <td>Spatial analysis to calculate protected areas’ contribution to
 population-based conservation targets.</td>
@@ -378,15 +388,16 @@ These species also need new maps. They are recorded in
 ##### **Occurrence record sources**
 
 1.  **Plant Red List database** - processed and imported to protection
-    level database using **workflow/process-rl-data.R**
+    level database using
+    [**workflow/process-rl-data.R**](process-rl-data.R)
 
 2.  **Plant Survey App** - fetched, processed, and imported to
     protection level database using
-    **worklfow/fetch-plant-survey-app-plotlist.R**
+    [**worklfow/fetch-plant-survey-app-plotlist.R**](fetch-plant-survey-app-plotlist.R)
 
 3.  **New/recently updated records from iNaturalist** - fetched,
     processed and imported to protection level database using
-    **workflow/fetch-inat-occurrences.R**
+    [**workflow/fetch-inat-occurrences.R**](fetch-inat-occurrences.R)
 
 ##### **Some notes on the process**
 
@@ -420,9 +431,9 @@ population size, as well as taxonomic revisions impacting PL assessments
 are recorded in the table `tblspecieschanges`.
 
 The initial work of comparing previous Red List data to new Red List
-data is started in **workflow/process-rl-data.R**, but also feeds into
-later work on revising targets, as population data is stored in
-`tbltargets`.
+data is started in [**workflow/process-rl-data.R**](process-rl-data.R),
+but also feeds into later work on revising targets, as population data
+is stored in `tbltargets`.
 
 #### Update suitable habitat maps
 
@@ -451,13 +462,14 @@ Species where only population size estimates were revised do not need
 their maps to be updated.
 
 Species that need their maps updated are identified through analyses in
-**workflow/prepare-map-data.R**. Species are checked for changes in the
-size and overlap of convex hulls around points supplied for current
-assessment vs the previous assessment. Where there is \<90% overlap,
-species are checked one by one, and where there has been range
-extensions, suitable habitat model input variables are adjusted in the
-database to accommodate new observations. Also, all species that have
-been taxonomically revised are checked and their variables adjusted.
+[**workflow/prepare-map-data.R**](prepare-map-data.R). Species are
+checked for changes in the size and overlap of convex hulls around
+points supplied for current assessment vs the previous assessment. Where
+there is \<90% overlap, species are checked one by one, and where there
+has been range extensions, suitable habitat model input variables are
+adjusted in the database to accommodate new observations. Also, all
+species that have been taxonomically revised are checked and their
+variables adjusted.
 
 This script records which species need to have their maps updated in the
 database table `tblspecieschanges`. From this table, input data for new
@@ -465,7 +477,7 @@ suitable habitat models are prepared.
 
 Once species needing new maps are identified, and their suitable habitat
 input variables checked and updated, new maps are generated using
-**workflow/produce-suitable-habitat-maps.R**.
+[**workflow/produce-suitable-habitat-maps.R**](produce-suitable-habitat-maps.R).
 
 #### Review occurrence records
 
@@ -474,10 +486,10 @@ for species, as these might represent georeferencing problems or
 misidentifications. These records should not be used in the Protection
 Level assessment.
 
-The script **workflow/qc-occurrence-data.R** checks occurrence records
-against species’ generalized range maps derived from their suitable
-habitat maps, and assigns occurrence records that pass checks to the
-current assessment.
+The script [**workflow/qc-occurrence-data.R**](qc-occurrence-data.R)
+checks occurrence records against species’ generalized range maps
+derived from their suitable habitat maps, and assigns occurrence records
+that pass checks to the current assessment.
 
 #### Set conservation targets
 
@@ -487,7 +499,8 @@ species occur at variable densities within their habitat. Some
 exceptions are made for species with small populations, as well as
 poorly known species. The process for considering various factors in
 setting targets is described in the Technical Report for this indicator.
-The workflow is implemented in **workflow/set-species-targets.R**.
+The workflow is implemented in
+[**workflow/set-species-targets.R**.](set-species-targets.R)
 
 #### Process land cover
 
@@ -505,7 +518,7 @@ assessment. This data has two purposes:
     areas inside protected areas is an indicator of poor effectiveness.
 
 Land cover data preparation is implemented in
-**workflow/process-landcover.R**.
+[**workflow/process-landcover.R**](process-landcover.R).
 
 #### Prepare protected areas data
 
@@ -531,8 +544,9 @@ management effectiveness experts from South African conservation
 agencies. This information is captured and processed and stored as
 effectiveness ratings in `tblpaeffectiveness` in the PLAD. For the 2025
 assessment, protected area effectiveness data were processed using
-**workflow/process-2025-pa-effectiveness-expert-contributions.R** and
-**workflow/set-pa-effectiveness-2025-assessment.R**.
+[**workflow/process-2025-pa-effectiveness-expert-contributions.R**](process-2025-pa-effectiveness-expert-contributions.R)
+and
+[**workflow/set-pa-effectiveness-2025-assessment.R**](set-pa-effectiveness-2025-assessment.R).
 
 ### Protection level assessment
 
@@ -548,13 +562,13 @@ scripts for calculating protected area contributions, each dealing with
 one of the three assessment methods:
 
 1.  Area-based targets:
-    **workflow/spatial-analysis-species-x-pa-area.R**
+    [**workflow/spatial-analysis-species-x-pa-area.R**](spatial-analysis-species-x-pa-area.R)
 
 2.  Locality/subpopulation-based targets:
-    **workflow/spatial-analysis-species-x-pa-localities.R**
+    [**workflow/spatial-analysis-species-x-pa-localities.R**](spatial-analysis-species-x-pa-localities.R)
 
 3.  Population-based targets:
-    **workflow/spatial-analysis-species-x-pa-population.R**
+    [**workflow/spatial-analysis-species-x-pa-population.R**](spatial-analysis-species-x-pa-population.R)
 
 #### Apply effectiveness
 
@@ -568,9 +582,9 @@ selected species according to their specific vulnerabilities. In the
 PLAD, data on general protected area effectiveness as well as specific
 pressures are stored in the table `tblpaeffectiveness`. This data is
 then moderated for species-specific pressures using the script
-**workflow/apply-pa-effectiveness-x-species.R** and the outputs are
-recorded for individual species x protected area combinations derived in
-the previous assessment step (`tblspeciesinpa`).
+[**workflow/apply-pa-effectiveness-x-species.R**](apply-pa-effectiveness-x-species.R)
+and the outputs are recorded for individual species x protected area
+combinations derived in the previous assessment step (`tblspeciesinpa`).
 
 #### Calculate Protection Level
 
@@ -583,12 +597,14 @@ Protection Level over time. Protection Level is also calculated with and
 without the consideration of protected area effectiveness, to allow the
 impact of ineffective protected area management to be quantified. All
 these calculations are executed in
-**workflow/calculate-protection-level.R**. The results are stored in
-`tblplassessment`. The script **workflow/assessment-sense-checks.R**
+[**workflow/calculate-protection-level.R**](calculate-protection-level.R).
+The results are stored in `tblplassessment`. The script
+[**workflow/assessment-sense-checks.R**](assessment-sense-checks.R)
 implements various tests on the results, to ensure logical consistencies
 in Protection Level categories against targets, the impact of
 effectiveness on Protection Level categories, as well as changes in
 Protection Level between time points. Further exploratory analyses and
 summaries of the assessment results are coded in
-**workflow/assessment-summary-statistics.qmd**. These analyses support
-the development of key messages around plant Protection Level.
+[**workflow/assessment-summary-statistics.qmd**](assessment-summary-statistics.qmd).
+These analyses support the development of key messages around plant
+Protection Level.
