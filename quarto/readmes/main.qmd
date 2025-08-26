@@ -76,7 +76,7 @@ print_table <- gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
                                   ),
                                 locations = cells_body(rows = 4))
 
-gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../..", "imgs"))
+gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../..", "images"))
 
 ```
 
