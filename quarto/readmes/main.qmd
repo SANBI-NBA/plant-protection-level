@@ -24,8 +24,6 @@ Protection Level measures the contribution of South Africa's protected area netw
 Species are classified into four categories, based on the percentage of their conservation target (@tbl-plcats):
 
 ```{r}
-#| label: tbl-plcats
-#| tbl-cap: "Protection Level categories"
 #| classes: plain
 #| echo: false
 #| eval: true
@@ -78,10 +76,8 @@ print_table <- gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
 gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../..", "images"), , expand = 200)
 
 ```
-::: {#tbl-plcats}
-![Protection Level categories](images/pl_categories.png)
-: Protection Level categories {#tbl-plcats}
-:::
+
+![Protection Level categories](images/pl_categories.png){#tbl-plcats}
 
 An additional feature of the Species Protection Level indicator is that it not only considers species representation in protected areas, but also the effectiveness of protected areas in mitigating pressures on species' populations within them. Studies of the conservation impact of protected areas indicate that effective protected area management is as important for long-term species persistence as expansion of habitat protection.[^3]^,^[^4]^,^[^5]^,^[^6] Therefore it is more difficult for species to be classified as Well Protected if the protected areas where they occur are not also effectively managed.
 

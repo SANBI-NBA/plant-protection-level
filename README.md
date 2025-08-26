@@ -32,10 +32,9 @@ their conservation target
 
 <div id="tbl-plcats">
 
-Table 1
+Table 1: Protection Level categories
 
-![Protection Level categories](images/pl_categories.png)  
-Protection Level categories {#tbl-plcats}
+![](images/pl_categories.png)
 
 </div>
 
