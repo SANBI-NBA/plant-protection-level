@@ -1,0 +1,14 @@
+---
+title: "Calculations"
+author: "Lize von Staden"
+format: html
+editor: visual
+---
+
+## 
+
+The SPI is calculated as follows:
+
+$$ SPI_t = 1-\frac{\sum_{s = 1}^{N}Wc_{(t,s)}}{W_{NP}*N} $$
+
+Where Wc~(t,s)~ is the weight of protection category c for species s at time t, W~NP~ is the weight of the Not Protected Category, and N is the total number of species in the assessment.

@@ -1,6 +1,11 @@
 # Technical workflow for assessing plant species Protection Level
 Lize von Staden
-2025-08-25
+2025-08-26
+
+- [Scripts in this workflow](#scripts-in-this-workflow)
+- [Technical workflow](#technical-workflow)
+  - [Data preparation](#data-preparation)
+  - [Protection level assessment](#protection-level-assessment)
 
 ## Scripts in this workflow
 

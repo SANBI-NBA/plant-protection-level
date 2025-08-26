@@ -2,10 +2,11 @@
 title: "Plant Protection Level"
 author: "Lize von Staden"
 date: last-modified
-format: gfm
+format: 
+ gfm:
+  toc: true
 reference-location: document
-language:
-  section-title-footnotes: "References"
+tbl-cap-location: top
 target-dir: ..
 editor: visual
 ---
@@ -23,14 +24,13 @@ Protection Level measures the contribution of South Africa's protected area netw
 Species are classified into four categories, based on the percentage of their conservation target (@tbl-plcats):
 
 ::: {#tbl-plcats}
-
 ```{r}
 #| label: tbl-plcats
 #| tbl-cap: "Protection Level categories"
 #| classes: plain
 #| echo: false
 #| eval: true
-#| include: false
+#| include: true
 #| warning: false
 
 library(gt)
@@ -73,6 +73,8 @@ gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
                                     cell_text(color = "white")
                                   ),
                                 locations = cells_body(rows = 4))
+
+
 ```
 :::
 
@@ -88,24 +90,18 @@ An additional feature of the Species Protection Level indicator is that it not o
 
 To quantify the impact of protected area effectiveness on the species Protection Level assessment, as well as track changes in species protection over time, Protection Level categories are combined into a Species Protection Index (SPI). The SPI is a number between 1 and 0, where 1 means that all species are Well Protected (meeting their conservation targets within the protected area network), while 0 means that all species are Poorly Protected (meeting between 0 and 5% of their conservation targets.
 
-The SPI is calculated as follows:
-
-$$
-SPI_t = 1-\frac{\sum_{s = 1}^{N}Wc_{(t,s)}{W_{NP}*N}
-$$
-
-Where Wc~(t,s)~ is the weight of protection category c for species s at time t (see @tbl-plcats), W~NP~ is the weight of the Not Protected Category, and N is the total number of species in the assessment.
-
 Species Protection Index is now also a [component indicator for Target 3](https://www.cbd.int/gbf/targets/3) of the CBD's Kunming-Montreal Global Biodiversity Framework.
 
 ## Calculating the Protection Level indicator for plants
 
-South Africa has more than 20 000 indigenous plant species, which makes calculating a comprehensive Protection Level indicator challenging. The plant Protection Level indicator therefore follows a sampled approach, similar to what is recommended for calculating a Red List Index for highly speciose taxon groups[^7]. A random sample of 900 species were selected from the indigenous flora, with the same sample used to calculate South Africa's national plant Red List Index, as well as the plant Species Protection Level indicator.
+South Africa has more than 20 000 indigenous plant species, which makes calculating a comprehensive Protection Level indicator challenging. The plant Protection Level indicator therefore follows a sampled approach, similar to what is recommended for calculating a Red List Index for highly speciose taxon groups[^7]. A random sample of 900 species were selected from the indigenous flora, with the same sample used to calculate South Africa's national plant Red List Index as well as the plant Species Protection Level indicator.
 
 [^7]: Baillie, J. E. M., B. Collen, R. Amin, H. R. Akcakaya, S. H. M. Butchart, N. Brummitt, T. R. Meagher, M. Ram, C. Hilton-Taylor, and G. M. Mace. 2008. Toward monitoring global biodiversity. Conservation Letters 1:18-26.
 
-This repository documents the process of calculating Protection Level for plants, including data preparation steps. The process is coded entirely in R, and scripts for each step in the process are stored in the folder [workflow](/workflow). Further technical documentation on setting conservation targets for plants, the application of protected area effectiveness in the assessment, and controlling for non-genuine Protection Level changes when the indicator is calculated across multiple time points can be found at (link still to be added).
+This repository documents the process of calculating Protection Level for plants, including data preparation steps. The process is coded in R, and scripts for each step in the process are stored in the folder [workflow](/workflow). Further technical documentation on setting conservation targets for plants, the application of protected area effectiveness in the assessment, and controlling for non-genuine Protection Level changes when the indicator is calculated across multiple time points can be found at (link still to be added).
 
 ## Recommended citation
 
 Von Staden, L. 2025. SANBI-NBA Plant Protection Level indicator \[Source code\]. GitHub Repository available at <https://github.com/SANBI-NBA/plant-protection-level>.
+
+## References
