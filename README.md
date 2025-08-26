@@ -34,8 +34,7 @@ their conservation target
 
 Table 1
 
-: Protection Level categories ![Protection Level
-categories](images/pl_categories.png)
+![Protection Level categories](images/pl_categories.png)
 
 </div>
 
