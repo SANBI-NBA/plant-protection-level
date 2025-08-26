@@ -30,7 +30,8 @@ Species are classified into four categories, based on the percentage of their co
 #| classes: plain
 #| echo: false
 #| eval: true
-#| include: true
+#| include: false
+#| output: false
 #| warning: false
 
 library(gt)
@@ -46,7 +47,8 @@ table_pl_categories <- table_pl_categories %>% rename(Categories = pl_categories
                                                       `Target percentage range` = target_percentage,
                                                       `Index weight` = category_weight)
 
-gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
+# gfm can't display this table well, so writing to img
+print_table <- gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
                                 gt::cols_align(align = "center", 
                                                             columns = 2:3) %>% 
                                 tab_style(
@@ -74,8 +76,11 @@ gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
                                   ),
                                 locations = cells_body(rows = 4))
 
+gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../..", "imgs"))
 
 ```
+
+![Protection Level categories](images/pl_categories.png)
 :::
 
 An additional feature of the Species Protection Level indicator is that it not only considers species representation in protected areas, but also the effectiveness of protected areas in mitigating pressures on species' populations within them. Studies of the conservation impact of protected areas indicate that effective protected area management is as important for long-term species persistence as expansion of habitat protection.[^3]^,^[^4]^,^[^5]^,^[^6] Therefore it is more difficult for species to be classified as Well Protected if the protected areas where they occur are not also effectively managed.
