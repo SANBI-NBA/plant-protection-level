@@ -1,0 +1,37 @@
+# Overview of workflow for calculating Protection Level for plant species
+
+Protection Level is calculated every five years to align with the reporting cycles of the MTDP. In addition, the indicator can also be updated when required for other reporting purposes such as the National Biodiversity Assessment, or South Africa's country report to the CBD. An important function of the indicator is to track progress in species protection over time, however, temporal trends need to reflect genuine changes in species protection, and the influence of improvements in data quality on the assessment outcome needs to be minimised. Therefore each assessment typically includes multiple time points - a latest assessment, as well as recomputing of historical time points based on best available data, which allows for reliable time series free of non-genuine changes in species protection to be constructed. See @sec-backcasting for a more detailed description on the process for calculating SPI time series.
+
+This section gives a brief overview of the workflow for calculating the Protection Level indicator for plants. It covers the process from data preparation to spatial analyses of species' occurrence in protected areas to the calculation of the SPI. All the processes described here are fully scripted in R coding language and available in the Plant Protection Level GitHub repository ([github.com/SANBI-NBA/plant-protection-level/tree/main/workflow](https://github.com/SANBI-NBA/plant-protection-level/tree/main/workflow)).
+
+## Data preparation
+
+### Species data
+
+#### Species included in the assessment {.unnumbered}
+
+South Africa has more than 20 000 indigenous plant species, which makes calculating a comprehensive Protection Level indicator challenging. The plant Protection Level indicator therefore follows a sampled approach, similar to what is recommended for calculating a Red List Index for highly speciose taxon groups.[@baillie2008toward] A random sample of 900 species were selected from the indigenous flora, with the same sample used to calculate South Africa’s national plant Red List Index as well as the plant Species Protection Level indicator. The same sample is used in each assessment to minimise effort required to prepare input data, which allows for more frequent calculations of the indicator.
+
+However, understanding of species concepts may evolve over time through taxonomic studies. The plant species sample is maintained to reflect the latest taxonomic classifications. Where taxonomic revisions result in new species concepts, relevant distribution and population abundance data are revised to reflect the revised species circumscriptions as the first step in each assessment. If taxonomic revisions result in species included in the sample no longer being recognised, they are replaced with the species with which they have been synonymised.
+
+#### Distribution data {.unnumbered}
+
+Occurrence records, which represent *in situ* observations of wild individuals of sampled species, are the primary data source for confirming the presence of species within protected areas. In instances where population counts are associated with records, they are also used to calculate protected areas' contributions to population targets. Where no population data is available, occurrence records are used to construct suitable habitat maps for species (see @sec-habitat-maps for a description). Suitable habitat maps are used in combination with data on species densities to infer population sizes inside protected areas.
+
+For each assessment, the latest available occurrence data are sourced for all 900 species. @sec-data provides an overview of the sources of occurrence data. Ensuring that species presences are confirmed in newly established protected areas in particular requires ongoing monitoring and updates to occurrence data, and the assessment workflow is designed to ensure that the best available data is included in each assessment.
+
+Occurrence records are verified against species' range maps. Records that fall outside range maps may represent georeferencing problems or misidentifications, and such records must be excluded from the assessment. In instances where verifications reveal genuine improvements in the knowledge of species' distribution ranges, species' suitable habitat maps are updated to align with range extensions.
+
+#### Population and abundance data {.unnumbered}
+
+### Protected areas
+
+#### Spatial data {.unnumbered}
+
+#### Protected area effectiveness {.unnumbered}
+
+## Setting conservation targets
+
+## Spatial analysis
+
+## Calculating Protection Level

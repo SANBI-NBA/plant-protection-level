@@ -41,11 +41,16 @@ po/*~
 # RStudio Connect folder
 rsconnect/
 
+# Quarto related files and folders
+/_book/
+/.quarto/
+
 # Other files
 *.csv
 *.gpkg
 *.html
 *.tif
+*.pdf
 
 # Other folders
 **/data/

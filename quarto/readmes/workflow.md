@@ -327,7 +327,9 @@ The first step is to extract the latest plant sample list from the plant
 Red List database and compare it to `tblspecies` in the PLAD. Taxonomy
 is managed through the following columns in `tblspecies`:
 
-<div id="tbl-taxonomy" class="table" tbl-colwidths="[25, 75]">
+<div id="tbl-taxonomy">
+
+Table 1
 
 | Column | Purpose |
 |----|----|

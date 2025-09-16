@@ -1,0 +1,87 @@
+# Introduction
+
+## The National Biodiversity Assessment
+
+The National Biodiversity Assessment (NBA) is a report on the status of South Africa's biodiversity across terrestrial, freshwater, estuarine, and marine realms. The report synthesises the best available data on biodiversity in South Africa, in a format to support policy and environmental decision-making. The results of the NBA is utilised in reporting on South Africa's commitments to several international multilateral environmental agreements such as the United Nations Convention on Biological Diversity (CBD) and Sustainable Development Goals (SDGs).
+
+![Headline indicators of the National Biodiversity Assessment. (Reproduced from NBA 2018[@Skownonba2019]).](imgs/headline-indicators.png){#fig-headline-indicators fig-align="center" fig-pos="h"}
+
+A key focus of the report is two headline indicators on the status of species and ecosystems: Threat Status, which tracks changes in species' risk of extinction and ecosystems' risk of collapse over time, and Protection Level, which measures the contribution of protected areas in meeting species and ecosystem conservation targets. Both indicators classifies species and ecosystems into categories of risk or protection, which enables effective visual comparisons of the relative state of species and ecosystems across taxon groups and realms (@fig-headline-indicators).
+
+## Species Protection Level
+
+The Species Protection Level indicator measures the contribution of South Africa's protected area network to the persistence of indigenous species. It is typically calculated for all species in a taxon group, but for highly speciose groups, a sampled approach is followed.
+
+A population target is set for each species, which is the minimum number of individuals necessary to ensure the long term persistence of the species. There are various methods for setting population targets, to accommodate different levels of data availability, as well as the population dynamics and life-history patterns of different species. Ideally, the target is a Minimum Viable Population (MVP), which can be determined through statistical models of species' population dynamics. Most species are however not well enough studied to enable estimates of MVPs, and therefore an alternative target is 10 000 individuals. This is a somewhat precautionary target - most MVPs are less than 10 000 - aligned with the threshold of the IUCN Red List of Species criterion C. For relatively short-lived species with strongly fluctuating population dynamics, a fixed population target is less practical to apply. For these species, the target is a minimum number of viable subpopulations - typically at least 10.
+
+To calculate Protection Level the number of individuals or subpopulations in all protected areas where the species are present are summed, and this value is then compared to the target as a proportion or percentage of the target met.
+
+However, not all protected areas are fully effective in mitigating pressures such as poaching or predation by non-native species, leading to some species' populations to continue to decline despite habitat protection. Studies of the impact of protected areas on species persistence consistently note that effective protected area management is as important as protected area expansion.[@geldmann2018global; @costelloe2016global; @justin2023protected; @wauchope2022protected] Therefore the Species Protection Level Indicator also considers the effectiveness of protected areas in mitigating pressures on species' populations within them. It achieves this by applying a penalty factor to a protected area's contribution to a species' conservation target if there are pressures impacting the persistence of the species inside the protected area. This means that it becomes more difficult to meet the conservation target if species occur in protected areas that are not effectively managed.
+
+Species are classified into four categories, based on the percentage of their conservation target met. The percentage values are calculated considering both the population/subpopulation contributions of protected areas, as well as their effectiveness (@tbl-plcats).
+
+```{r}
+#| classes: plain
+#| echo: false
+#| eval: true
+#| include: false
+#| output: false
+#| warning: false
+
+library(gt)
+library(nbaR)
+library(dplyr)
+library(chromote)
+
+pl_categories <- c("Not Protected", "Poorly Protected", "Moderately Protected", "Well Protected")
+target_percentage <- c("0-4.9", "5-49", "50-99", "100+")
+
+table_pl_categories <- as.data.frame(cbind(pl_categories, target_percentage))
+table_pl_categories <- table_pl_categories %>% rename(Category = pl_categories,
+                                                      `Target percentage range` = target_percentage)
+
+# gfm can't display this table well, so writing to img
+print_table <- gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
+                                gt::cols_align(align = "center", 
+                                                            columns = 2) %>% 
+                                tab_style(
+                                  style = list(
+                                    cell_fill(color = "#A6A6A6"),
+                                    cell_text(color = "white")
+                                  ),
+                                locations = cells_body(rows = 1)) %>% 
+                                tab_style(
+                                  style = list(
+                                    cell_fill(color = "#D5DEC4"),
+                                    cell_text(color = "white")
+                                  ),
+                                locations = cells_body(rows = 2)) %>% 
+                                tab_style(
+                                  style = list(
+                                    cell_fill(color = "#84AB5C"),
+                                    cell_text(color = "white")
+                                  ),
+                                locations = cells_body(rows = 3)) %>%
+                                tab_style(
+                                  style = list(
+                                    cell_fill(color = "#4B6E00"),
+                                    cell_text(color = "white")
+                                  ),
+                                locations = cells_body(rows = 4))
+
+# Saving the gt table requires a path to chrome (WTF)
+chromote::find_chrome()
+
+gtsave(data = print_table, filename = "pl_categories.png", path = file.path("imgs"), , expand = 200)
+
+```
+
+![Protection Level categories](imgs/pl_categories.png){#tbl-plcats}
+
+The classification of species into Protection Level categories allows for effective visual comparisons of differences in Protection Level across taxonomic groups at a particular point in time (@fig-headline-indicators). To track changes in Protection Level over time, Protection Level categories are combined into a Species Protection Index (SPI). The SPI is a number between 1 and 0, where 1 means that all species are Well Protected, while 0 means that all species are Poorly Protected. The Index is calculated following a similar formula as the Red List Index for Species.[@akcakaya2006biodiversity] @sec-calculations provides further details on the calculation of Protection Level categories for individual species, as well as the SPI.
+
+## Application of the Species Protection Index in biodiversity monitoring and reporting
+
+The SPI is an indicator for the environmental section of the South African government's [Medium Term Development Plan](https://www.dpme.gov.za/keyfocusareas/outcomesSite/Pages/default.aspx) (MTDP), a strategic framework that is the central organising focus of activities across ministries, departments and entities. The MTDP set a national target to improve the SPI by 5% with each 5 year plannig and reporting cycle. Achievement of this target involves co-operation between all agencies and government departments involved in protected area implementation, protected area management, and monitoring and reporting on species.
+
+The SPI is also a component indicator for the Convention on Global Biodiversity's Kunming-Montreal Biodiversity Framework [Target 3](https://www.cbd.int/gbf/targets/3), which aims to ensure that by 2030 at least 30% of terrestrial, inland water, and coastal and marine areas that are of particular importance for biodiversity are effectively conserved. This indicator provides evidence that the world's protected area network (which includes other effective area-based conservation measures, OECMs) is ecologically representative.

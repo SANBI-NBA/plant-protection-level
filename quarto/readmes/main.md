@@ -1,6 +1,6 @@
 # Plant Protection Level
 Lize von Staden
-2025-08-26
+2025-09-09
 
 - [Introduction to the Protection Level
   indicator](#introduction-to-the-protection-level-indicator)
@@ -27,7 +27,7 @@ and Species Protection Level was calculated for the first time in
 2018[^2].
 
 Species are classified into four categories, based on the percentage of
-their conservation target
+their conservation target met
 (<a href="#tbl-plcats" class="quarto-xref">Table 1</a>):
 
 <div id="tbl-plcats">
@@ -35,7 +35,6 @@ their conservation target
 Table 1: Protection Level categories
 
 ![](images/pl_categories.png)
-
 </div>
 
 An additional feature of the Species Protection Level indicator is that
@@ -90,10 +89,12 @@ code\]. GitHub Repository available at
 
 ## References
 
-[^1]: Rouget, M., B. Reyers, Z. Jonas, P. Desmet, A. Driver, K. Maze, B.
-    Egoh, and R. M. Cowling. 2004. South African National Spatial
-    Biodiversity Assessment 2004 Technical Report Volume 1: Terrestrial
-    Component. South African National Biodiversity Institute, Pretoria.
+[^1]: Driver, A., K. Maze, M. Rouget, A. T. Lombard, J. Nel, J. K.
+    Turpie, R. M. Cowling, P. Desmet, P. Goodman, J. Harris, Z. Jonas,
+    B. Reyers, K. Sink, and T. Strauss. 2005. National Spatial
+    Biodiversity Assessment 2004: Priorities for Biodiversity
+    Conservation in South Africa. Strelitzia. South African National
+    Biodiversity Institute, Pretoria.
 
 [^2]: Raimondo, D., L. Von Staden, D. Van der Colff, M. Child, K. A.
     Tolley, D. Edge, S. Kirkman, J. Measy, M. Taylor, E. Retief, J.

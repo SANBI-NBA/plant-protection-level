@@ -17,11 +17,11 @@ Protection Level is one of the headline indicators of South Africa's [National B
 
 Protection Level measures the contribution of South Africa's protected area network to meeting conservation targets for species and ecosystems. Ecosystem Protection Level was calculated for the first time in 2004[^1] and Species Protection Level was calculated for the first time in 2018[^2].
 
-[^1]: Rouget, M., B. Reyers, Z. Jonas, P. Desmet, A. Driver, K. Maze, B. Egoh, and R. M. Cowling. 2004. South African National Spatial Biodiversity Assessment 2004 Technical Report Volume 1: Terrestrial Component. South African National Biodiversity Institute, Pretoria.
+[^1]: Driver, A., K. Maze, M. Rouget, A. T. Lombard, J. Nel, J. K. Turpie, R. M. Cowling, P. Desmet, P. Goodman, J. Harris, Z. Jonas, B. Reyers, K. Sink, and T. Strauss. 2005. National Spatial Biodiversity Assessment 2004: Priorities for Biodiversity Conservation in South Africa. Strelitzia. South African National Biodiversity Institute, Pretoria.
 
 [^2]: Raimondo, D., L. Von Staden, D. Van der Colff, M. Child, K. A. Tolley, D. Edge, S. Kirkman, J. Measy, M. Taylor, E. Retief, J. Weeber, L. Roxburgh, and B. Fizzotti. 2019. Chapter 8: Indigenous Species Assessments.in A. L. Skowno, D. C. Raimondo, C. J. Poole, B. Fizzotti, and J. A. Slingsby, editors. National Biodiversity Assessment 2018 Technical Report Volume 1: Terrestrial Realm. South African National Biodiversity Institute, Pretoria.
 
-Species are classified into four categories, based on the percentage of their conservation target (@tbl-plcats):
+Species are classified into four categories, based on the percentage of their conservation target met (@tbl-plcats):
 
 ```{r}
 #| classes: plain
@@ -40,7 +40,7 @@ target_percentage <- c("0-4.9", "5-49", "50-99", "100+")
 category_weight <- c(3,2,1,0)
 
 table_pl_categories <- as.data.frame(cbind(pl_categories, target_percentage, category_weight))
-table_pl_categories <- table_pl_categories %>% rename(Categories = pl_categories,
+table_pl_categories <- table_pl_categories %>% rename(Category = pl_categories,
                                                       `Target percentage range` = target_percentage,
                                                       `Index weight` = category_weight)
 
@@ -73,6 +73,7 @@ print_table <- gt::gt(table_pl_categories) %>% nba_tbl_theme() %>%
                                   ),
                                 locations = cells_body(rows = 4))
 
+Sys.setenv(CHROMOTE_CHROME = "C:/Users/vonStadenL/AppData/Local/Google/Chrome/Application/chrome.exe")
 gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../..", "images"), , expand = 200)
 
 ```

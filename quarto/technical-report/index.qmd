@@ -1,0 +1,13 @@
+## Executive summary {.unnumbered}
+
+This technical report is a companion to the plant Protection Level indicator source code repository on GitHub[^index-1], with more in depth explanations of some of the aspects of the assessment such as the setting of conservation targets for plant species, the sourcing and application of protected area effectiveness, and calculation of the indicator across multiple time points.
+
+[^index-1]: Available at <https://github.com/SANBI-NBA/plant-protection-level>
+
+## Acknowledgements {.unnumbered}
+
+Data sources, reviewers
+
+## Recommended citation {.unnumbered}
+
+Von Staden, L. 2025. Technical Report: National Biodiversity Assessment Plant Protection Level indicator. South African National Biodiversity Institute, Pretoria. (add doi)
