@@ -2,7 +2,7 @@
 
 Protection Level is calculated every five years to align with the reporting cycles of the MTDP. In addition, the indicator can also be updated when required for other reporting purposes such as the National Biodiversity Assessment, or South Africa's country report to the CBD. An important function of the indicator is to track progress in species protection over time, however, temporal trends need to reflect genuine changes in species protection, and the influence of improvements in data quality on the assessment outcome needs to be minimised. Therefore each assessment typically includes multiple time points - a latest assessment, as well as recomputing of historical time points based on best available data, which allows for reliable time series free of non-genuine changes in species protection to be constructed. See @sec-backcasting for a more detailed description on the process for calculating SPI time series.
 
-This section gives a brief overview of the workflow for calculating the Protection Level indicator for plants. It covers the process from data preparation to spatial analyses of species' occurrence in protected areas to the calculation of the SPI. All the processes described here are fully scripted in R coding language and available in the Plant Protection Level GitHub repository ([github.com/SANBI-NBA/plant-protection-level/tree/main/workflow](https://github.com/SANBI-NBA/plant-protection-level/tree/main/workflow)).
+This section gives a brief overview of the workflow for calculating the Protection Level indicator for plants. It covers the process from data preparation to spatial analyses of species' occurrence in protected areas to the calculation of the SPI. All the processes described here are fully scripted in R coding language and available in the [Plant Protection Level GitHub repository](https://github.com/SANBI-NBA/plant-protection-level/tree/main/workflow).
 
 ## Data preparation
 
@@ -24,14 +24,45 @@ Occurrence records are verified against species' range maps. Records that fall o
 
 #### Population and abundance data {.unnumbered}
 
+Population size (as defined by the [IUCN Red List of Species](https://www.iucnredlist.org/resources/categories-and-criteria)) is the most important determinant of the conservation target that is set for each species (see @sec-targets). For plants, population size is sourced from national Red List assessments (available at [redlist.sanbi.org](https://redlist.sanbi.org/)). With each Protection Level assessment, the latest available data on population size is obtained. For species with small populations that are assessed under Red List criteria C and D, occurrence records often contain counts of numbers of individuals at the observation locality. For these species, these data points are used to estimate the number of individuals within protected areas.
+
+For species where counts of individuals at observation localities are not available, the Protection Level assessment uses density estimates (number of individuals per hectare of suitable habitat) to infer the number of individuals within a protected area. Habitat density is estimated from counts of individuals within defined areas (such as transects or plots), but crucially also includes absences - plots/transects within modelled suitable habitat where the species was not recorded. This generally results in a lower density estimate than methods where only presences are considered. This approach has been taken because for most plant species protected areas' contribution to targets are estimated based on the amount of suitable habitat for each species within each PA, rather than observations (point occurrence records) which can be biased due to variability in sampling effort.
+
+| Abundance category | Minimum density | Maximum density | Median density | Protection Level density | Area target for 10000 individuals |
+|------------|:----------:|:----------:|:----------:|:----------:|:----------:|
+| Rare | 0.00 | 39.88 | 1.50 | 1 | 10 000 ha |
+| Occasional | 0.32 | 48.85 | 5.89 | 5 | 2000 ha |
+| Common | 1.43 | 70.82 | 13.49 | 10 | 1000 ha |
+| Abundant | 12.56 | 77.88 | 33.09 | 30 | 333 ha |
+
+: Suitable habitat densities derived from Protea Atlas survey data. (Density estimates are plants per hectare). {#tbl-density}
+
+There are ongoing efforts to collect field-based density data for sampled plant species, but it is not yet complete for all species. For species lacking density estimates standard densities are assigned based on qualitative descriptions of their abundance in the literature and herbarium specimen notes. The standard densities were derived from Protea Atlas Project data. The [Protea Atlas Project](https://www.proteaatlas.org.za/) (1991-2001) systematically surveyed the habitat of Proteaceae species in South Africa, estimating the number of plants within roughly 500x500m survey areas. This dataset[@pap2005] containing more than 50 000 survey localities allowed for fine-scale modelling of suitable habitat for all species (using the same method as for the Protection Level assessment), as well as estimates of habitat density for each species within their modelled habitat. Proteaceae species were then assigned a qualitative abundance category based on descriptions in Rebelo (2001).[@rebelo2001] Therefore it was possible to estimate data-driven densities for each qualitative category. Density estimates varied widely per category, and there were large overlaps in density ranges between categories. The median values for each category was used as a guide for setting representative density estimates for each abundance category, and is applied in the Protection Level assessment for species where only qualitative estimates of abundance is available (@tbl-density).
+
+A limitation of the qualitative method for density estimation is that it does not take plant size into consideration. Larger species (for example trees) may be described as common but may occur as only a few individuals per hectare, whereas several thousand individuals of a micro-species could potentially occur within a few square meters.
+
 ### Protected areas
 
 #### Spatial data {.unnumbered}
 
+Spatial data on the extent of protected areas in South Africa is prepared for each Protection Level assessment based on the latest available protected areas data (see @sec-data for sources). A spatial layer is prepared for each time point in the assessment, representing protected areas that were declared by that time, as well as excluding degazetted areas. Protected areas that share a boundary are grouped into protected area clusters. Protected area clusters enable the confirmation of species presence in protected areas. If there is an observation of the species anywhere within the cluster, all areas of suitable habitat within that cluster contributes to meeting the species' conservation target. Features representing protected area sections declared at different points in time (i.e. enlargements or extensions of existing protected areas over time) are dissolved to create single features per protected area. This process simplifies the protected areas data in support of a more efficient assessment of protected area effectiveness.
+
 #### Protected area effectiveness {.unnumbered}
+
+For each assessment, individual protected areas’ effectiveness in mitigating pressures on plant species is reviewed by protected area management effectiveness experts from South African conservation agencies. The focus of the process is to quantify effectiveness for newly declared protected areas, and to update effectiveness where there has been changes (positive or negative) since the previous assessment. Where no changes are noted, effectiveness ratings from previous assessments are transferred to the current assessment as is. Expert effectiveness ratings are augmented with data on land use change inside protected areas, as well as spatial data on the distribution and density of alien invasive plants within protected areas. @sec-effectiveness provides more detail on how protected area effectiveness is considered in the calculation of the Protection Level indicator.
 
 ## Setting conservation targets
 
+The conservation target set for each species is dependent on data on the distribution, population size, and abundance of the species (@sec-targets). Once the sampled list has been adjusted to accommodate taxonomic revisions, and species distribution and abundance data have been updated, conservation targets are adjusted to reflect the best available knowledge on each species. This means that species conservation targets are not fixed, but evolves as data improves. However, consistent targets are applied for each time point within an assessment, to avoid data changes obscuring genuine changes in the SPI (see @sec-backcasting).
+
 ## Spatial analysis
 
+After data preparation and updating conservation targets, the first step in the assessment is to intersect suitable habitat maps and occurrence data with the protected area data prepared for each time point. Depending on the type of conservation target set for each species, the area of suitable habitat, population size, or number of subpopulations is calculated for each protected area intersecting with a species' distribution.
+
 ## Calculating Protection Level
+
+Data from the spatial analysis on species' presence and abundance in protected areas is combined with expert elicited effectiveness ratings. Effectiveness ratings are then adjusted for species x protected area combinations depending on which pressures are reducing effectiveness, because not all species are for example targeted for poaching (@sec-effectiveness). Data on species x protected area x effectiveness is summed and compared against the conservation target to calculate a Protection Level score for each species. The Protection Level score determines the Protection Level category applied to each species (@tbl-plcats). The SPI is then calculated by combining the Protection Level categories for all assessed species into a single index score. @sec-calculations describes the mathematical formulae used in calculating Protection Level categories and the SPI.
+
+For each assessment, individual species' Protection Level categories are calculated with and without the consideration of protected area effectiveness, to enable the quantification of the impact of protected area management on the indicator and SPI. Protection Level and SPI is calculated for each time point to quantify trends in the indicator and index over time. These calculations support a richer narrative on the causes of trends in the indicator.
+
+A series of automated quality assessments are applied to assessment results to detect potential errors.

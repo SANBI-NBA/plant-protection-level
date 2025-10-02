@@ -10,4 +10,4 @@ Data sources, reviewers
 
 ## Recommended citation {.unnumbered}
 
-Von Staden, L. 2025. Technical Report: National Biodiversity Assessment Plant Protection Level indicator. South African National Biodiversity Institute, Pretoria. (add doi)
+Von Staden, L. 2025. *Plant Protection Level indicator*. National Biodiversity Assessment Technical Reports. South African National Biodiversity Institute, Pretoria. 10.6084/m9.figshare.30135625

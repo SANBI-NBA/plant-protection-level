@@ -1,10 +1,10 @@
-# Setting targets for plant species
+# Setting targets for plant species {#sec-targets}
 
 There are no known studies determining minimum viable population estimates for plant species in the national plant sample. Therefore a default target of 10 000 individuals is used for all species, with exceptions for naturally rare or range-restricted species with no evidence of recent or ongoing decline. For these species, the target is 100% of the population or extent of suitable habitat, unless the population is known to be \<1000 individuals, where a minimum target of 1000 individuals is set. This minimum target is used because species with populations of \<1000 individuals are considered at risk of extinction according to IUCN Red List of Species criteria, as such populations are vulnerable to stochastic events.
 
 Protected areas' contributions to targets are calculated based on whether species' population size is known or unknown, and whether locality-specific counts of individuals are available across most of the species' range or not. Data on population size and numbers of individuals at localities are generally reliable only for species assessed under IUCN Red List of Species criteria C and D, which highlights species at risk of extinction due to small populations. For these species, summed count data from distinct localities within protected areas are used to measure protected areas' contributions to targets.
 
-For species with unknown population size, or where the size and structure of subpopulations are not well documented, area-based targets are set based on species-specific density estimates. Individual species targets are based on similar rules as for species with known population size, but here the target is converted to an area of suitable habitat required to be present within protected areas. Protected areas' contributions to targets are calculated through an intersect of suitable habitat with protected area boundaries. Protected areas are included only when occurrence records within the protected area or protected area cluster confirm the species' presence within the protected area. This method relies on species distributions and habitat preferences being well known and understood, to enable reasonably accurate mapping of suitable habitat.
+For species with unknown population size, or where the size and structure of subpopulations are not well documented, area-based targets are set based on species-specific density estimates (@tbl-density). Individual species targets are based on similar rules as for species with known population size, but here the target is converted to an area of suitable habitat required to be present within protected areas. Protected areas' contributions to targets are calculated through an intersect of suitable habitat with protected area boundaries. Protected areas are included only when occurrence records within the protected area or protected area cluster confirm the species' presence within the protected area. This method relies on species distributions and habitat preferences being well known and understood, to enable reasonably accurate mapping of suitable habitat.
 
 Where species are poorly known (typically species assessed as Data Deficient) it may be difficult to define their preferred habitat, and occurrence records may under-represent their distributions, resulting in low confidence in suitable habitat maps. Sometimes species are so poorly known, it may not be possible to map suitable habitat at all, for example species described from cultivated material that have not yet been relocated in the wild. For these species, a target of 10 distinct localities within protected areas is set, and occurrence records are used to measure protected areas' contributions to species targets.
 
@@ -54,7 +54,7 @@ flowchart TD
 
 ## Target category definitions
 
-### 1. Well-known species with population size known or suspected to be \>10 000
+### Well-known species with population size known or suspected to be \>10 000
 
 This category includes all widespread and common species (typically assessed as Least Concern) or threatened species that are still relatively widespread in spite of past or ongoing decline. These species are identified either from population size estimates captured as part of Red List assessments, or because density x extent of suitable habitat suggests a population size \>10 000. Whether species are considered well-known is inferred from occurrence records. The number of verified occurrence records available for each species, as well as the precision estimates of a species' occurrence records help to determine whether it is poorly known or not. Species where all their known observations are from poorly defined localities - for example locality descriptions that are too vague to determine precisely where they have been collected are considered poorly known. Species with five or fewer occurrence records are also considered poorly known.
 
@@ -62,7 +62,7 @@ This category includes all widespread and common species (typically assessed as 
 
 **Target:** Area of suitable habitat equivalent to 10 000 individuals
 
-### 2. Species with known population size \<10 000 and evidence of past or ongoing decline, but not meeting criteria C or D
+### Species with known population size \<10 000 and evidence of past or ongoing decline, but not meeting criteria C or D
 
 This category includes all threatened and Near Threatened species where population size estimates are captured as part of Red List assessments, but they do not meet criteria C or D. The reasons for this are not always clear, but it may mean that there are not enough locality-specific counts of individuals. For these species, densities are assigned as maximum population size/total area of suitable habitat, so that if all modelled habitat is protected, it should add up to the Red List's population size.
 
@@ -72,7 +72,7 @@ Because these species have small populations due to decline, an area equivalent 
 
 **Target:** Area of suitable habitat equivalent to 10 000 individuals
 
-### 3. Species with known population size \<10 000, well-known population structure, and evidence of past or ongoing decline
+### Species with known population size \<10 000, well-known population structure, and evidence of past or ongoing decline
 
 This category includes threatened or Near Threatened species assessed under criterion C, or species meeting criterion D as well as other criteria indicating decline (A, B, or C). These assessments require good knowledge of the number and size of most of the species' subpopulations, which are all very small (1000 individuals or less). These species' protection level should not be assessed using suitable habitat models, which can significantly overestimate protected areas' contributions to the population target.
 
@@ -82,7 +82,7 @@ These species are assigned a population target of 10 000 individuals, which cann
 
 **Target:** 10 000 individuals
 
-### 4. Species with known population size \<1000 but no evidence of recent or ongoing decline
+### Species with known population size \<1000 but no evidence of recent or ongoing decline
 
 These are species Red Listed as threatened (or national status of NT\*) under criterion D alone. These are species with extremely small global (or national) populations that are highly vulnerable to extinction due to stochastic events. As populations are too small to persist long term, the population target is set at 1000 individuals (the threshold for Vulnerable under criterion D). This target cannot be met unless there is investment in population restoration. Count data associated with occurrence records are used to calculate protected areas' contributions towards the target (as for target category 3).
 
@@ -90,7 +90,7 @@ These are species Red Listed as threatened (or national status of NT\*) under cr
 
 **Target:** 1000 individuals
 
-### 5. Naturally rare or range restricted species with known or suspected small populations, but no evidence of recent or ongoing decline
+### Naturally rare or range restricted species with known or suspected small populations, but no evidence of recent or ongoing decline
 
 This category includes species with known population size (as captured in Red List assessments) as well as small population size inferred from density x habitat calculations that is \<10 000 individuals, but it is not threatened or suspected to be declining. Where the population size is inferred, there is no lower limit - in other words, species with inferred populations of \<1000 individuals are also included here. This category includes Critically Rare, Rare, VU D2 and some Least Concern species. For these species, a target of 100% of the extent of their suitable habitat is set. These species can be Well Protected if all of their habitat is included within well-managed protected areas.
 
@@ -98,7 +98,7 @@ This category includes species with known population size (as captured in Red Li
 
 **Target:** 100% of suitable habitat map
 
-### 6. Declining species with narrow distributions that are suspected to have populations \<10 0000
+### Declining species with narrow distributions that are suspected to have populations \<10 0000
 
 This category includes threatened and Near Threatened species where suitable habitat x density suggests a population of \<10 000. These are typically narrowly distributed species assessed under criterion B. These species are highlighted as a separate category, although the same assessment method and target as for category 5 is used. This is because where these species occur in protected areas, they are likely to be facing ongoing pressures that are not mitigated by the protected areas. These species' protection level assessments must be carefully reviewed to ensure that effectiveness of protected areas where they occur is accurately captured. These species are highly unlikely to be assessed as Well Protected, even if all their suitable habitat is protected.
 
@@ -106,7 +106,7 @@ This category includes threatened and Near Threatened species where suitable hab
 
 **Target:** 100% of suitable habitat map
 
-### 7. Poorly known species
+### Poorly known species
 
 This category includes species where suitable habitat models cannot be produced, or where there is low confidence in the suitable habitat model. These typically include Data Deficient species, but also some Rare, Critically Rare and Critically Endangered (Possibly Extinct) species only known from a few records with imprecise locality descriptions. For these species, suitable habitat models cannot give reliable estimates of protected areas' contributions to targets, as they may either over- or under-estimate suitable habitat by a large degree. Therefore, for these species, occurrence records are used to define distinct localities or subpopulations, and the target is 10 localities/subpopulations.
 
@@ -116,29 +116,14 @@ This category includes species where suitable habitat models cannot be produced,
 
 ## Assessment methods
 
-### 1. Area
+### Area
 
 Describe method
 
-### 2. Population
+### Population
 
 Describe method
 
-### 3. Distinct localities
+### Distinct localities
 
 Describe method
-
-## Species densities
-
-For these species, a population target of 10 000 is set, and this is converted to an area target, based on habitat density estimates. Habitat density is estimated from counts of individuals within defined areas (such as transects or plots), but crucially also includes absences - plots/transects within modelled suitable habitat for the species where it was not recorded. This generally results in a much lower density estimate than what would be if only presences were considered. This approach has been taken because protected areas' contribution to targets are estimated based on the amount of suitable habitat for each species within each PA, rather than observations (point occurrence records) which can be biased due to variability in sampling effort.
-
-For most species in the plant sample, field-based estimates of habitat density is not available. For these species, standard densities are assigned based on qualitative descriptions of their abundance in the literature and herbarium specimen notes. The standard densities were derived from Protea Atlas Project data. The Protea Atlas Project (years) systematically surveyed the habitat of Proteaceae species in South Africa, estimating the number of plants within (xxx) plots. This dataset allowed for fine-scale modelling of suitable habitat for all species (using the same method as for the Protection Level assessment), as well as estimates of habitat density for each species within their modelled habitat. Proteaceae species were then assigned a qualitative abundance category based on descriptions in Rebelo(xxxx). Therefore it was possible to estimate somewhat realistic densities for each qualitative category. Density estimates varied widely per category, and there were large overlaps in density ranges between categories. The median values for each category was used as a guide for setting representative density estimates for each abundance category, and is applied in the Protection Level assessment for species where only qualitative estimates of abundance is available.
-
-| Abundance category | Minimum density | Maximum density | Median density | Protection Level density | Area target for 10000 individuals |
-|------------|:----------:|:----------:|:----------:|:----------:|:----------:|
-| Rare | 0.00 | 39.88 | 1.50 | 1 | 10 000 ha |
-| Occasional | 0.32 | 48.85 | 5.89 | 5 | 2000 ha |
-| Common | 1.43 | 70.82 | 13.49 | 10 | 1000 ha |
-| Abundant | 12.56 | 77.88 | 33.09 | 30 | 333 ha |
-
-: Suitable habitat densities derived from Protea Atlas survey data. (Density estimates are plants per hectare).

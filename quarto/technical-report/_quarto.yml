@@ -45,6 +45,7 @@ format:
     fig-pos: 'h'
     tbl-pos: 'h'
     crossref:
+      sec-prefix: Section
       fig-prefix: Figure
       fig-title: Figure
       tbl-prefix: Table
@@ -53,6 +54,7 @@ format:
       tbl-labels: arabic
       subref-labels: alpha a
       title-delim: \.
+      
 
 language:
   section-title-footnotes: Notes

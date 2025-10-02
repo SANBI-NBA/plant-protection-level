@@ -1,13 +1,37 @@
 # Data sources {#sec-data}
 
-## Species data
+## Species
 
-### Species list
+### Red List of South African plants {.unnumbered}
 
-### Species distributions
+Most of the data that is used in the Protection Level assessment is contributed by the plant Red List assessment database supporting South Africa's national Red List website ([redlist.sanbi.org](https://redlist.sanbi.org/)). The sampled species list is maintained in this database, as it is also used to calculate South Africa's national Red List Index for plants. The following data is extracted from the Red List assessment database:
 
-### Population data
+-   Taxonomic classification
+-   Red List category and criteria
+-   Population size and spatial data on the size and distribution of subpopulations
+-   Plant growth forms
+-   Species targeted for poaching
+-   Occurrence records
+-   Pressures on plant populations within protected areas observed by citizen science volunteers
+
+### iNaturalist {.unnumbered}
+
+iNaturalist ([inaturalist.org](https://www.inaturalist.org/pages/about)) is a platform for sharing biodiversity observations. South Africa has a strong citizen scientist community that has contributed more than 5 million observations. Observations submitted to iNaturalist require at least three agreements on species identifications before it is categorized as research grade. Research grade observations are contributed to the [Global Biodiversity Information Facility](https://www.gbif.org/). For each Protection Level assessment, research grade observations of sampled species updated or newly contributed since the last assessment are extracted using [iNaturalist's API](https://api.inaturalist.org/v1/docs/).
+
+### Plant Survey App {.unnumbered}
+
+The Plant Survey App facilitates seamless measurement and submission of field-recorded density data for sampled plant species. The app provides a list of sampled species that are expected to occur within the vicinity of a user's mobile phone location, and data on counts of species detected can be submitted via the app. For all species not counted, absences (null records) are records. With each assessment, data submitted to the app are extracted and combined with other occurrence data for use in confirming presences in protected areas, and mean density estimates are for all species with at least 5 presence records. Where new data provides for better estimates of density, density values used in setting area-based conservation targets are updated.
 
 ## Protected areas
 
-### Effectiveness
+Spatial data on the location of protected areas in South Africa is obtained from the South African Protected Areas Database (SAPAD), maintained by the Department of Forestry, Fisheries and the Environment. This database contains all protected areas formally recognised in terms of the National Environmental Management: Protected Areas Act.
+
+### Effectiveness {.unnumbered}
+
+## Suitable habitat
+
+### Vegetation {.unnumbered}
+
+### Altitude {.unnumbered}
+
+### Landforms {.unnumbered}
