@@ -26,7 +26,7 @@ This category includes all widespread and common species (typically assessed as 
 
 This category includes all threatened and Near Threatened species where population size estimates are captured as part of Red List assessments, but they do not meet criteria C or D. The reasons for this are not always clear, but it may mean that there are not enough locality-specific counts of individuals. For these species, densities are assigned as maximum population size/total area of suitable habitat, so that if all modelled habitat is protected, it should add up to the Red List's population size.
 
-Because these species have small populations due to decline, an area equivalent of 10 000 individuals is set as a target, which means that the area target exceeds the area of the mapped habitat, and these species cannot be Well Protected, even if all of their habitat is in well-managed protected areas.
+Because these species have small populations due to decline, an area equivalent of 10 000 individuals is set as a target, which means that the area target exceeds the area of the mapped habitat, and these species cannot be Well Protected, even if all of their habitat is in well-managed protected areas.
 
 **Assessment method:** Area
 

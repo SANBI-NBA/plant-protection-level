@@ -16,7 +16,7 @@ Most of the data that is used in the protection level assessment is contributed 
 
 ### iNaturalist {.unnumbered}
 
-iNaturalist ([inaturalist.org](https://www.inaturalist.org/pages/about)) is a platform for sharing biodiversity observations. South Africa has a strong citizen scientist community that has contributed more than 5 million observations. Observations submitted to iNaturalist require at least three agreements on species identifications before it is categorized as research grade. Research grade observations are contributed to the [Global Biodiversity Information Facility](https://www.gbif.org/). For each Protection Level assessment, research grade observations of sampled species updated or newly contributed since the last assessment are extracted using [iNaturalist's API](https://api.inaturalist.org/v1/docs/).
+iNaturalist ([inaturalist.org](https://www.inaturalist.org/pages/about)) is a platform for sharing biodiversity observations. South Africa has a strong citizen scientist community that has contributed more than 5 million observations. Observations submitted to iNaturalist require at least three agreements on species identifications before it is categorized as research grade. Research grade observations are contributed to the [Global Biodiversity Information Facility](https://www.gbif.org/). For each protection level assessment, research grade observations of sampled species updated or newly contributed since the last assessment are extracted using [iNaturalist's API](https://api.inaturalist.org/v1/docs/).
 
 ### Plant Survey App {.unnumbered}
 

@@ -1,1 +1,47 @@
 # Protected area effectiveness {#sec-effectiveness}
+
+Protected areas are rated for effectiveness in mitigating pressures on plant species in three categories, each with a clear definition (@tbl-effectiveness-categories). Expert contributors consider these definitions when assigning effectiveness based on their knowledge of the management, ecological condition, and pressures active inside individual protected areas. Experts are also asked to explicitly list pressures that are causing protected areas to be rated not fully effective. This information is important for the application of effectiveness for individual plant species x protected area combinations, because not all species are equally affected by specific pressures. For example, poaching targets mainly succulents, geophytes, and some trees with medicinal value. Some protected areas have large elephant populations, which can cause a decline in tree species.[@shannon2011relative; @cook2019management]
+
+| Category | Definition | **Penalty factor** |
+|-----------------|--------------------------------------|:---------------:|
+| Good | Protected area is fully effective in protecting species against pressures | 1 (no penalty) |
+| Fair | Protected area provides some mitigation of pressures on species, but is not fully effective | 0.5 |
+| Poor | Protected area provides no mitigation of pressures (areas often referred to as "paper parks") | 0.1 |
+
+: Effectiveness categories applied to protected areas {#tbl-effectiveness-categories}
+
+## Supplementary data on effectiveness
+
+Experts are not always familiar with the conditions in every protected area - South Africa has more than 3000 individual protected areas. Where experts do not comment on protected area effectiveness, additional data on land cover change and alien invasive plant cover in protected areas are used to infer effectiveness.
+
+### Land cover {.unnumbered}
+
+A national land cover time series is available for South Africa, dating from 1990.[@llcterr2025] This time series enables the calculation of the proportion of a protected area that is in natural or near-natural condition at a specific point in time, as well as changes in the extent of natural/near-natural vegetation between time points. It is assumed that protected areas that are mostly not in a natural condition, or where there is ongoing decline in the extent of natural vegetation are not effective in mitigating pressures on plant species. Effectiveness categories are applied according to the following rules:
+
+**Poor:** \<10% of protected area in natural/near natural condition OR \>10% decline in the extent of natural/near natural vegetation between time points
+
+**Fair:** 10-60% of protected area in natural/near natural condition OR 5-10% decline in the extent of natural/near natural vegetation between time points
+
+Where extent of protected area in natural condition suggests a different effectiveness category from decline in natural vegetation, the lowest category (highest penalty factor) is applied.
+
+### Alien invasive plants {.unnumbered}
+
+The percentage of each protected area that is covered by dense stands of alien invasive plants can also be used to infer effectiveness. Alien invasive plants outcompete native species, and can also affect the intensity of fires, which negatively impact native species even if they are adapted to survive fire.[@van1985effects; @holmes2000recovery]
+
+At present there is not yet a time series of changes in alien invasive plant cover over time, and therefore a single data set[@invterr2025] is used across all assessment time points. This data has the limitation that it is not representative of alien invasive plant clearing efforts in protected areas, but this tend to be noted by expert contributors when commenting on changes in protected area effectiveness, which is then used instead of this data.
+
+The thresholds for effectiveness categories based on extent of dense alien invasions are as follows:
+
+**Poor:** \>50% cover
+
+**Fair:** between 10 and 50% cover
+
+Where land cover and alien invasive plant cover indicate different effectiveness categories, the lowest category (highest penalty factor) is applied. Where experts have not commented, and neither of these supplementary data indicate fair or poor effectiveness, protected areas receive a good score.
+
+## Application of penalty factors
+
+Penalty factors (@tbl-effectiveness-categories) are applied when protected areas are rated as fair or poor. The protected area's contribution to an area, population, or locality target are multiplied by the penalty factor, thereby reducing that protected area's contribution to the target by half (fair) or 10 times (poor). The impact of effectiveness penalty factors is therefore that species need much more habitat or populations protected than if all the protected areas where they occur are effective in mitigating pressures. The application of penalty factors are however moderated for individual species depending on their resilience to disturbance and for selected pressures.
+
+For species resilient to disturbance - typically weedy pioneer species - no penalty factors are applied, regardless of the effectiveness rating of the protected areas where they occur, or the pressures recorded. The assumption is that these species persist in, or effectively recolonize heavily disturbed areas, and therefore they are less sensitive to poor ecological condition and most pressures on biodiversity. These species are therefore expected to only be impacted by complete clearing of natural vegetation inside protected areas, which is applied when area of suitable habitat inside a protected area is calculated.
+
+A selection of pressures only affect effectiveness ratings for species known to be sensitive to those pressures. These pressures include poaching, overgrazing (by livestock or game populations maintained above ecosystem carrying capacity), or large elephant populations. When one of these pressures are the only reason why a protected area is rated as not fully effective, the effectiveness rating is applied only to species vulnerable to that pressure. When one of these pressures are listed as part of a suite of reasons why a protected area is not effective, the effectiveness rating of the protected area is downgraded by one level for species sensitive to that pressure. For example, if a protected area is rated as fair, but poaching is mentioned among a selection of other pressures, the penalty score for poor is applied to species targeted by poaching. If the overall rating of the protected area is already poor, then the penalty factor is not adjusted for the selected pressures.
