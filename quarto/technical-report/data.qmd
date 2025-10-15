@@ -4,7 +4,7 @@
 
 ### Red List of South African plants {.unnumbered}
 
-Most of the data that is used in the Protection Level assessment is contributed by the plant Red List assessment database supporting South Africa's national Red List website ([redlist.sanbi.org](https://redlist.sanbi.org/)). The sampled species list is maintained in this database, as it is also used to calculate South Africa's national Red List Index for plants. The following data is extracted from the Red List assessment database:
+Most of the data that is used in the protection level assessment is contributed by the plant Red List assessment database supporting South Africa's national plant Red List website ([redlist.sanbi.org](https://redlist.sanbi.org/)). The sampled species list is maintained in this database, as it is also used to calculate South Africa's national Red List Index for plants. The following data is extracted from the Red List assessment database:
 
 -   Taxonomic classification
 -   Red List category and criteria
@@ -20,18 +20,36 @@ iNaturalist ([inaturalist.org](https://www.inaturalist.org/pages/about)) is a pl
 
 ### Plant Survey App {.unnumbered}
 
-The Plant Survey App facilitates seamless measurement and submission of field-recorded density data for sampled plant species. The app provides a list of sampled species that are expected to occur within the vicinity of a user's mobile phone location, and data on counts of species detected can be submitted via the app. For all species not counted, absences (null records) are records. With each assessment, data submitted to the app are extracted and combined with other occurrence data for use in confirming presences in protected areas, and mean density estimates are for all species with at least 5 presence records. Where new data provides for better estimates of density, density values used in setting area-based conservation targets are updated.
+The Plant Survey App facilitates seamless measurement and submission of field-recorded density data for sampled plant species. The app provides a list of sampled species that are expected to occur within the vicinity of a user's mobile phone location, and data on counts of species detected can be submitted via the app. For all species not counted, absences (null records) are recorded. With each assessment, data submitted to the app are extracted and combined with other occurrence data for use in confirming presences in protected areas, and mean density estimates are calculated for all species with at least 5 presence records. Where new data provides for better estimates of density, density values used in setting area-based conservation targets are updated.
 
 ## Protected areas
+
+### Spatial extent {.unnumbered}
 
 Spatial data on the location of protected areas in South Africa is obtained from the South African Protected Areas Database (SAPAD), maintained by the Department of Forestry, Fisheries and the Environment. This database contains all protected areas formally recognised in terms of the National Environmental Management: Protected Areas Act.
 
 ### Effectiveness {.unnumbered}
 
+Since the 2025 assessment, effectiveness is determined primarily through expert-elicited effectiveness ratings. In earlier assessments, pressures on populations of plant species of conservation concern observed by citizen science volunteers affiliated with the Custodians of Rare and Endangered Wildflowers programme were used instead. These pressures were captured together with locality data for plant species in the national plant Red List assessment database. The spatial data on pressures were intersected with spatial data on the location of protected areas, to detect protected areas that are not effective in mitigating pressures on plant species. Severity ratings associated with pressures were used to determine the effectiveness category (poor or fair - see @sec-effectiveness for further details).
+
+Where experts did not comment on protected area effectiveness, data on land cover change and density and cover of alien invasive plants inside protected areas were used to determine effectiveness. Land cover change is sourced from the national land cover change time series, prepared for the NBA.[@llcterr2025]
+
+Data on alien invasive plants were prepared by combining several datasets - National Invasive Alien Plant survey data[@kotzé2025], Western Cape Invasive Alien Tree survey[@rebelo], MAPWAPS invasive alien plant surveys for four catchments (Mzimvubu[@skosanaa], Tugela[@cogill], Sabie-Crocodile[@skosana], Luvuvhu[@cogilla]), and the uMngeni catchment invasive alien plant density map associated with the Ecological Infrastructure for Water Security (EI4WS) Project. The data set was developed by the Institute of Natural Resources and GeoNest (Pty) Ltd. in a collaboration between uMngeni-uThukela Water and the South African National Biodiversity Institute (SANBI).
+
+The process for combining these datasets is documented in the *Invasive alien plant data for terrestrial ecosystem assessment* GitHub repository.[@invterr2025]
+
 ## Suitable habitat
 
-### Vegetation {.unnumbered}
+Suitable habitat maps combine three input spatial datasets describing different aspects of plant species' habitat preferences.
+
+### Terrestrial ecosystems {.unnumbered}
+
+The national vegetation map of South Africa is used to map the spatial extent of ecosystems associated with species' preferred habitat. At present, all assessments use the 2012 version of the national vegetation map.[@vegmap2012]
 
 ### Altitude {.unnumbered}
 
+Data on altitude is derived from a 90 meter Shuttle Radar Topography Mission (SRTM) digital elevation model of South Africa.
+
 ### Landforms {.unnumbered}
+
+Landforms were determined through a topographic position index analysis of national altitude data. The output of the analysis was classified into six landform types typically preferred by plant species - summit ridges, upper slopes, mid-slopes, flats, drainage lines, and deep canyons/gorges.

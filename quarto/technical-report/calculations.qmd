@@ -1,1 +1,1 @@
-# Calculating the Protection Level indicator {#sec-calculations}
+# Calculating the protection level indicator {#sec-calculations}

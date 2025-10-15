@@ -1,0 +1,55 @@
+---
+title: "tagets-mermaid-code"
+format: html
+---
+
+This code does not render well in pdf. Putting it here for reference.
+
+```{mermaid}
+
+---
+config:
+  theme: neutral
+  themeVariables:
+    fontSize: 15
+---
+
+flowchart TD
+  q1[Population size is known, or can be inferred from habitat x density]
+  q2[Is population size known or suspected to be >10 000]
+  q3[Is the species poorly known]
+  q4[Is the population size known]
+  q5[Is it small due to recent or ongoing decline]
+  q6[Is it assessed under criterion C, or D plus other criteria]
+  q7[Is the population size <1000?]
+  q8[Is the species poorly known]
+  q9[Is there evidence of recent or ongoing decline?]
+  a1((Target category 1))
+  a2((Target category 2))
+  a3((Target category 3))
+  a4((Target category 4))
+  a5((Target category 5))
+  a6((Target category 6))
+  a7((Target category 7))
+  q1 -- Yes --> q2
+  q1 -- No --> a7
+  q2 -- Yes --> q3
+  q2 -- No --> q4
+  q3 -- Yes --> a7
+  q3 -- No --> a1
+  q4 -- Yes --> q5
+  q4 -- No --> q8
+  q5 -- Yes --> q6
+  q5 -- No --> q7
+  q6 -- No --> a2
+  q6 -- Yes --> a3
+  q7 -- Yes --> a4
+  q7 -- No --> a5
+  q8 -- Yes --> a7
+  q8 -- No --> q9
+  q9 -- No --> a5
+  q9 -- Yes --> a6
+  
+  
+  
+```

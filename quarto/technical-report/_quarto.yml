@@ -4,7 +4,7 @@ project:
   browser: false
  
 book:
-  title: "Plant Protection Level indicator"
+  title: "Plant protection level indicator"
   author: "Lize von Staden"
   date: last-modified
   chapters:
@@ -39,7 +39,7 @@ format:
     classoption: ["oneside", "open=any"]
     number-sections: true 
     toc: true
-    toc-depth: 3
+    toc-depth: 2
     toc-title: Contents
     mainfont: "Arial"
     fig-pos: 'h'

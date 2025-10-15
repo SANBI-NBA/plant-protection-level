@@ -1,1 +1,23 @@
-# Creating suitable habitat maps for plant species {#sec-habitat-maps}
+# Creating suitable habitat maps {#sec-habitat-maps}
+
+Mapping of suitable habitat for South African plant species follows the method suggested by Brooks et al.[@brooks2019measuring] for mapping terrestrial Area of Habitat (AOH). The method involves eliminating areas within a species' known geographic range where the species is unlikely to occur due to the unsuitability of these areas to the habitat preferences of the species.
+
+Land cover classes in Global Land Cover datasets are mapped to the IUCN habitat classification scheme[^suitable-habitat-maps-1]. The habitat preferences of each species is coded following this classification scheme as part of the IUCN Red List of species assessments, which then allows the identification of land cover classes representing suitable habitat for a species. In addition, areas outside of species' preferred altitudinal ranges, which are also coded as part of IUCN Red List assessments are excluded from suitable habitat maps. Brooks et al. argue that AOH maps are better suited to conservation applications than climatic or ecological niche models, which tend to represent potential habitat for a species beyond its known distribution range.
+
+[^suitable-habitat-maps-1]: Available at <https://www.iucnredlist.org/resources/habitat-classification-scheme>
+
+## Adaptation of the AOH method for South African plants
+
+### Geographic range
+
+Range maps following IUCN mapping standards have not yet been completed for all species included in the national sample. Therefore, for each species, a range map is created by fitting a concave hull around verified occurrence records, which is buffered by 5 km. Suitable habitat is then mapped within the extent of these range maps (@fig-range-map).
+
+![Process for generating geographic range maps for plant species](imgs/range-map.png){#fig-range-map fig-align="center" width="400"}
+
+### Species habitat preferences
+
+Plant species' habitat preferences are quantified according to three variables - ecosystems, land forms, and altitude. Suitable habitat among these variables are coded for each sampled species and stored in a database. Coding is done through interpretation of species' habitat descriptions in the botanical literature and herbarium specimens. Species' altitudinal ranges are determined by intersecting verified occurrence records with a digital elevation model of South Africa.
+
+For each variable, areas coded as suitable habitat for the species are extracted from raster layers representing the variable (@fig-suitable-habitat-map A-C). The extracted layers are then intersected (@fig-suitable-habitat-map D), and only areas where suitable habitat for all three variables are detected are included in the suitable habitat map (@fig-suitable-habitat-map E).
+
+![Combining variables indicating species habitat preferences within the geographic range to map suitable habitat](imgs/shm-process.png){#fig-suitable-habitat-map}

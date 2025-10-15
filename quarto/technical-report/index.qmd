@@ -1,13 +1,16 @@
 ## Executive summary {.unnumbered}
 
-This technical report is a companion to the plant Protection Level indicator source code repository on GitHub[^index-1], with more in depth explanations of some of the aspects of the assessment such as the setting of conservation targets for plant species, the sourcing and application of protected area effectiveness, and calculation of the indicator across multiple time points.
+This technical report is a companion to the plant protection level indicator source code repository on GitHub[^index-1], with more in depth explanations of some of the aspects of the assessment such as the setting of conservation targets for plant species, the sourcing and application of protected area effectiveness, and calculation of the indicator across multiple time points.
 
 [^index-1]: Available at <https://github.com/SANBI-NBA/plant-protection-level>
 
 ## Acknowledgements {.unnumbered}
 
-Data sources, reviewers
+Hlengiwe Mtshali (SANBI Threatened Species Unit) assisted with data extraction from the plant Red List assessment database. Dewidine van der Colff (SANBI Threatened Species Unit) and Sediqa Khatieb (SANBI NBA Unit) prepared the spatial data on protected areas. Dewidine also co-ordinated the expert contributions on protected area effectiveness. Officials from SANParks, CapeNature, Mpumalanga Tourism and Parks Agency, Eastern Cape Parks and Tourism Agency, Ezemvelo KZN Wildlife, Limpopo Department of Economic Development, Environment and Tourism, Gauteng Department of Agriculture and Rural Development, Northern Cape Department of Agriculture, Land Reform and Rural Development, and North West Department of Economic Development, Environment, Conservation and Tourism provided inputs on protected area effectiveness. Andrew Skowno (SANBI NBA Unit) prepared the land cover time series and spatial data on alien invasive plants used to supplement protected area effectiveness scores.
+
+Data providers:
+South Africa's national Department of Forestry, Fisheries and the Environment, Biodiversity GIS (South African National Biodiversity Institute), iNaturalist, Alanna Rebelo (Stellenbosch University), Institute of Natural Resources, Geonest (Pty) Ltd, Andrew Wannenburgh (Working for Water Programme) and the MapWAPS Project.
 
 ## Recommended citation {.unnumbered}
 
-Von Staden, L. 2025. *Plant Protection Level indicator*. National Biodiversity Assessment Technical Reports. South African National Biodiversity Institute, Pretoria. 10.6084/m9.figshare.30135625
+Von Staden, L. 2025. *Plant protection level indicator*. National Biodiversity Assessment Technical Reports. South African National Biodiversity Institute, Pretoria. doi:10.6084/m9.figshare.30135625

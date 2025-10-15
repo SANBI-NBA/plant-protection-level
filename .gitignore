@@ -51,6 +51,7 @@ rsconnect/
 *.html
 *.tif
 *.pdf
+*.xml
 
 # Other folders
 **/data/
