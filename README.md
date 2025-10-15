@@ -1,17 +1,17 @@
 # Plant Protection Level
 Lize von Staden
-2025-09-09
+2025-10-15
 
 - [Introduction to the Protection Level
   indicator](#introduction-to-the-protection-level-indicator)
-- [Calculating the Protection Level indicator for
+- [Calculating the protection level indicator for
   plants](#calculating-the-protection-level-indicator-for-plants)
 - [Recommended citation](#recommended-citation)
 - [References](#references)
 
 ## Introduction to the Protection Level indicator
 
-Protection Level is one of the headline indicators of South Africa’s
+Protection level is one of the headline indicators of South Africa’s
 [National Biodiversity
 Assessment](https://www.sanbi.org/biodiversity/building-knowledge/biodiversity-monitoring-assessment/national-biodiversity-assessment/)
 (NBA), a report on the status of the country’s biodiversity. The report
@@ -20,10 +20,10 @@ is produced by the South African National Biodiversity Institute
 well as reporting on South Africa’s commitments to the Convention on
 Biological Diversity (CBD).
 
-Protection Level measures the contribution of South Africa’s protected
+Protection level measures the contribution of South Africa’s protected
 area network to meeting conservation targets for species and ecosystems.
-Ecosystem Protection Level was calculated for the first time in 2004[^1]
-and Species Protection Level was calculated for the first time in
+Ecosystem protection level was calculated for the first time in 2004[^1]
+and species protection level was calculated for the first time in
 2018[^2].
 
 Species are classified into four categories, based on the percentage of
@@ -37,7 +37,7 @@ Table 1: Protection Level categories
 ![](images/pl_categories.png)
 </div>
 
-An additional feature of the Species Protection Level indicator is that
+An additional feature of the species protection level indicator is that
 it not only considers species representation in protected areas, but
 also the effectiveness of protected areas in mitigating pressures on
 species’ populations within them. Studies of the conservation impact of
@@ -49,8 +49,8 @@ Protected if the protected areas where they occur are not also
 effectively managed.
 
 To quantify the impact of protected area effectiveness on the species
-Protection Level assessment, as well as track changes in species
-protection over time, Protection Level categories are combined into a
+protection level assessment, as well as track changes in species
+protection over time, protection level categories are combined into a
 Species Protection Index (SPI). The SPI is a number between 1 and 0,
 where 1 means that all species are Well Protected (meeting their
 conservation targets within the protected area network), while 0 means
@@ -61,30 +61,30 @@ Species Protection Index is now also a [component indicator for Target
 3](https://www.cbd.int/gbf/targets/3) of the CBD’s Kunming-Montreal
 Global Biodiversity Framework.
 
-## Calculating the Protection Level indicator for plants
+## Calculating the protection level indicator for plants
 
 South Africa has more than 20 000 indigenous plant species, which makes
 calculating a comprehensive Protection Level indicator challenging. The
-plant Protection Level indicator therefore follows a sampled approach,
+plant protection level indicator therefore follows a sampled approach,
 similar to what is recommended for calculating a Red List Index for
 highly speciose taxon groups[^7]. A random sample of 900 species were
 selected from the indigenous flora, with the same sample used to
 calculate South Africa’s national plant Red List Index as well as the
-plant Species Protection Level indicator.
+plant species protection level indicator.
 
-This repository documents the process of calculating Protection Level
+This repository documents the process of calculating protection level
 for the plant sample, including data preparation steps. The process is
 coded in R, and scripts for each step in the process are stored in the
 folder [workflow](workflow/). Further technical documentation on setting
 conservation targets for plants, the application of protected area
 effectiveness in the assessment, and controlling for non-genuine
-Protection Level changes when the indicator is calculated across
+protection level changes when the indicator is calculated across
 multiple time points can be found at (link still to be added).
 
 ## Recommended citation
 
-Von Staden, L. 2025. SANBI-NBA Plant Protection Level indicator \[Source
-code\]. GitHub Repository available at
+Von Staden, L. 2025. SANBI-NBA Plant protection level indicator \[Source
+code\]. GitHub repository available at
 <https://github.com/SANBI-NBA/plant-protection-level>.
 
 ## References

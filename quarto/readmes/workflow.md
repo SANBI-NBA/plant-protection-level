@@ -1,6 +1,6 @@
-# Technical workflow for assessing plant species Protection Level
+# Technical workflow for assessing plant species protection level
 Lize von Staden
-2025-08-26
+2025-10-15
 
 - [Scripts in this workflow](#scripts-in-this-workflow)
 - [Technical workflow](#technical-workflow)
@@ -10,7 +10,7 @@ Lize von Staden
 ## Scripts in this workflow
 
 The R scripts documented here encompasses the full workflow process for
-a Protection Level assessment for sampled plant species, starting with
+a protection level assessment for sampled plant species, starting with
 data preparation, assessment, and finally, the production of summary
 statistics, which feeds into the graphs and tables displayed in the NBA
 website. There are also some supporting scripts, containing reusable
@@ -60,7 +60,7 @@ poaching or overgrazing.</td>
 <td><a
 href="assessment-sense-checks.R">assessment-sense-checks.R</a></td>
 <td>Assessment</td>
-<td>A script containing various logical tests for Protection Level
+<td>A script containing various logical tests for protection level
 assessment results, to detect potential assessment errors.</td>
 <td><ul>
 <li><p>db-connection.R</p></li>
@@ -72,7 +72,7 @@ assessment results, to detect potential assessment errors.</td>
 href="calculate-protection-level.R">calculate-protection-level.R</a></td>
 <td>Assessment</td>
 <td>The main assessment script. It summarises species x pa data, and
-then calculates Protection Level without and with the consideration of
+then calculates protection level without and with the consideration of
 effectiveness for each time point in the current assessment.</td>
 <td><ul>
 <li><p>db-connection.R</p></li>
@@ -104,9 +104,9 @@ iNaturalist via an API call.</td>
 <td><a
 href="fetch-plant-survey-app-plotlist.R">fetch-plant-survey-app-plotlist.R</a></td>
 <td>Data preparation</td>
-<td>The Plant Survey App allows for field-based density observations of
-sampled plant species to be reported directly to the plant Protection
-Level assessment. This script processes the latest data stored in the
+<td>The Plant Survey App enables field-based density observations of
+sampled plant species to be reported directly to the plant protection
+level assessment. This script processes the latest data stored in the
 app, and updated the PLAD with the best available density estimates for
 each species recorded.</td>
 <td><ul>
@@ -119,7 +119,7 @@ each species recorded.</td>
 href="function-calculate-protection-level.R">function-calculate-protection-level.R</a></td>
 <td>Supporting</td>
 <td>Basic function for taking summarised species x protected area data,
-comparing it against targets, and calculating Protection Level scores
+comparing it against targets, and calculating protection level scores
 and categories.</td>
 <td></td>
 </tr>
@@ -164,7 +164,7 @@ file that can be joined to spatial protected areas data.</td>
 <td>Data preparation</td>
 <td>A script for processing 7-class land cover data used in ecological
 condition assessments to a 2-class (natural/not natural) version for use
-in the plant Protection Level assessment.</td>
+in the plant protection level assessment.</td>
 <td><ul>
 <li><p>.Renviron</p></li>
 <li><p>SANBI 7-class land cover data in .tif format</p></li>
@@ -220,7 +220,7 @@ other verification processes.</td>
 href="set-pa-effectiveness-2025-assessment.R">set-pa-effectiveness-2025-assessment.R</a></td>
 <td>Data preparation</td>
 <td>An archival script documenting how protected area effectiveness was
-determined for the 2025 plant Protection Level assessment. This script
+determined for the 2025 plant protection level assessment. This script
 transfers effectiveness applied to the protected area spatial data used
 in NBA 2018 to a new protected area layer representing current best
 available knowledge on what was protected in 2017. Rules are applied to
@@ -289,17 +289,17 @@ population-based conservation targets.</td>
 
 ## Technical workflow
 
-Each plant Protection Level assessment is assigned a unique id
+Each plant protection level assessment is assigned a unique id
 (`assessment_id`) in the PLAD. This id is recorded in all data tables in
-the PLAD, and allows for the data used within each Protection Level
+the PLAD, and allows for the data used within each protection level
 assessment to be clearly identifiable.
 
 The first step in a new assessment is to add a new record to
 `refassessments` table in the PLAD. This table determines the assessment
 ID and records some metadata about the assessment (publication,
 assessment date, assessors). Then, if the assessment includes multiple
-time points (i.e. best available data is used to recalculate Protection
-Level at specified points in the past), a record for each time point
+time points (i.e. best available data is used to recalculate protection
+level at specified points in the past), a record for each time point
 needs to be added to `refassessmenttimepoints`.
 
 Most of the workflow scripts require that the assessment ID of the
@@ -314,7 +314,7 @@ specified.
 
 #### Check and update taxonomy
 
-The plant Protection Level assessment is based on a random sample of 900
+The plant protection level assessment is based on a random sample of 900
 species that also informs South Africa’s national Red List Index for
 plants. The list of species that is included in the sample is managed in
 the national plant Red List database. Taxonomic changes to Red Listed
@@ -406,13 +406,12 @@ These species also need new maps. They are recorded in
 Most records come from the Plant Red List database. These records have
 been checked as part of the Red List assessment process. With each PL
 assessment, all the accepted records associated with each of the 900
-sampled species are shared with the Protection Level assessment. To
+sampled species are shared with the protection level assessment. To
 avoid duplication, these records are cross-checked against the records
-already in the protection level assessment database (table
-`geospeciesoccurrences`) and only new records are appended. This process
-is managed through the array column `assessments` in
-`geospeciesoccurrences`, where each protection level assessment where
-the data was used is recorded.
+already in the PLAD (table `geospeciesoccurrences`) and only new records
+are appended. This process is managed through the array column
+`assessments` in `geospeciesoccurrences`, where each protection level
+assessment where the data was used is recorded.
 
 The Plant Survey App data also should not need checking, except in cases
 of taxonomic revision. This is because the app builds its survey lists
@@ -425,10 +424,10 @@ maps, and only records within suitable habitat retained.
 
 Red List assessment data - species’ Red List status, as well as
 population size, guide the setting of species’ conservation targets.
-With each Protection Level assessment, it is important to use the latest
+With each protection level assessment, it is important to use the latest
 assessment data, but also to record how changes in Red List status are
-affecting Protection Level assessments, to enable detection of genuine
-changes in Protection Level. Changes in species’ Red List status,
+affecting protection level assessments, to enable detection of genuine
+changes in protection level. Changes in species’ Red List status,
 population size, as well as taxonomic revisions impacting PL assessments
 are recorded in the table `tblspecieschanges`.
 
@@ -440,7 +439,7 @@ is stored in `tbltargets`.
 #### Update suitable habitat maps
 
 Suitable habitat maps are the basis for estimating protected areas’
-contributions to Protection Level where the number of individuals of a
+contributions to protection level where the number of individuals of a
 species in the PA is not known. Suitable habitat maps are modelled based
 on three factors or aspects of species’ preferred habitat as described
 in literature and on specimens:
@@ -485,8 +484,8 @@ input variables checked and updated, new maps are generated using
 
 It is necessary to check that occurrence records are not out of range
 for species, as these might represent georeferencing problems or
-misidentifications. These records should not be used in the Protection
-Level assessment.
+misidentifications. These records should not be used in the protection
+level assessment.
 
 The script [**workflow/qc-occurrence-data.R**](qc-occurrence-data.R)
 checks occurrence records against species’ generalized range maps
@@ -554,7 +553,7 @@ and
 
 #### Spatial analysis
 
-The first step in the Protection Level assessment is to intersect
+The first step in the protection level assessment is to intersect
 species’ distribution data (suitable habitat maps and occurrence
 records) with protected areas. Intersected data is used to calculate
 individual protected areas’ contributions to species conservation
@@ -588,14 +587,14 @@ then moderated for species-specific pressures using the script
 and the outputs are recorded for individual species x protected area
 combinations derived in the previous assessment step (`tblspeciesinpa`).
 
-#### Calculate Protection Level
+#### Calculate protection level
 
-Protection Level is calculated by summing individual protected areas’
+Protection level is calculated by summing individual protected areas’
 contributions and comparing it to species’ conservation targets. Species
 are classified into four categories based on the percentage of their
-conservation target met. Protection Level is calculated for each time
+conservation target met. Protection level is calculated for each time
 point in the assessment, to enable an assessment of changes in
-Protection Level over time. Protection Level is also calculated with and
+protection level over time. Protection level is also calculated with and
 without the consideration of protected area effectiveness, to allow the
 impact of ineffective protected area management to be quantified. All
 these calculations are executed in
@@ -603,10 +602,10 @@ these calculations are executed in
 The results are stored in `tblplassessment`. The script
 [**workflow/assessment-sense-checks.R**](assessment-sense-checks.R)
 implements various tests on the results, to ensure logical consistencies
-in Protection Level categories against targets, the impact of
-effectiveness on Protection Level categories, as well as changes in
-Protection Level between time points. Further exploratory analyses and
+in protection level categories against targets, the impact of
+effectiveness on protection level categories, as well as changes in
+protection level between time points. Further exploratory analyses and
 summaries of the assessment results are coded in
 [**workflow/assessment-summary-statistics.qmd**](assessment-summary-statistics.qmd).
 These analyses support the development of key messages around plant
-Protection Level.
+protection level.

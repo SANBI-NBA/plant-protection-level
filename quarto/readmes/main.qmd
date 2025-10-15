@@ -13,9 +13,9 @@ editor: visual
 
 ## Introduction to the Protection Level indicator
 
-Protection Level is one of the headline indicators of South Africa's [National Biodiversity Assessment](https://www.sanbi.org/biodiversity/building-knowledge/biodiversity-monitoring-assessment/national-biodiversity-assessment/) (NBA), a report on the status of the country's biodiversity. The report is produced by the South African National Biodiversity Institute (SANBI), to support national decision-making on environmental policy, as well as reporting on South Africa's commitments to the Convention on Biological Diversity (CBD).
+Protection level is one of the headline indicators of South Africa's [National Biodiversity Assessment](https://www.sanbi.org/biodiversity/building-knowledge/biodiversity-monitoring-assessment/national-biodiversity-assessment/) (NBA), a report on the status of the country's biodiversity. The report is produced by the South African National Biodiversity Institute (SANBI), to support national decision-making on environmental policy, as well as reporting on South Africa's commitments to the Convention on Biological Diversity (CBD).
 
-Protection Level measures the contribution of South Africa's protected area network to meeting conservation targets for species and ecosystems. Ecosystem Protection Level was calculated for the first time in 2004[^1] and Species Protection Level was calculated for the first time in 2018[^2].
+Protection level measures the contribution of South Africa's protected area network to meeting conservation targets for species and ecosystems. Ecosystem protection level was calculated for the first time in 2004[^1] and species protection level was calculated for the first time in 2018[^2].
 
 [^1]: Driver, A., K. Maze, M. Rouget, A. T. Lombard, J. Nel, J. K. Turpie, R. M. Cowling, P. Desmet, P. Goodman, J. Harris, Z. Jonas, B. Reyers, K. Sink, and T. Strauss. 2005. National Spatial Biodiversity Assessment 2004: Priorities for Biodiversity Conservation in South Africa. Strelitzia. South African National Biodiversity Institute, Pretoria.
 
@@ -80,7 +80,7 @@ gtsave(data = print_table, filename = "pl_categories.png", path = file.path("../
 
 ![Protection Level categories](images/pl_categories.png){#tbl-plcats}
 
-An additional feature of the Species Protection Level indicator is that it not only considers species representation in protected areas, but also the effectiveness of protected areas in mitigating pressures on species' populations within them. Studies of the conservation impact of protected areas indicate that effective protected area management is as important for long-term species persistence as expansion of habitat protection.[^3]^,^[^4]^,^[^5]^,^[^6] Therefore it is more difficult for species to be classified as Well Protected if the protected areas where they occur are not also effectively managed.
+An additional feature of the species protection level indicator is that it not only considers species representation in protected areas, but also the effectiveness of protected areas in mitigating pressures on species' populations within them. Studies of the conservation impact of protected areas indicate that effective protected area management is as important for long-term species persistence as expansion of habitat protection.[^3]^,^[^4]^,^[^5]^,^[^6] Therefore it is more difficult for species to be classified as Well Protected if the protected areas where they occur are not also effectively managed.
 
 [^3]: Geldmann, J., L. Coad, M. D. Barnes, I. D. Craigie, S. Woodley, A. Balmford, T. M. Brooks, M. Hockings, K. Knights, and M. B. Mascia. 2018. A global analysis of management capacity and ecological outcomes in terrestrial protected areas. Conservation Letters 11:e12434.
 
@@ -90,20 +90,20 @@ An additional feature of the Species Protection Level indicator is that it not o
 
 [^6]: Costelloe, B., B. Collen, E. Milner‐Gulland, I. D. Craigie, L. McRae, C. Rondinini, and E. Nicholson. 2016. Global biodiversity indicators reflect the modeled impacts of protected area policy change. Conservation Letters 9:14-20.
 
-To quantify the impact of protected area effectiveness on the species Protection Level assessment, as well as track changes in species protection over time, Protection Level categories are combined into a Species Protection Index (SPI). The SPI is a number between 1 and 0, where 1 means that all species are Well Protected (meeting their conservation targets within the protected area network), while 0 means that all species are Poorly Protected (meeting between 0 and 5% of their conservation targets.
+To quantify the impact of protected area effectiveness on the species protection level assessment, as well as track changes in species protection over time, protection level categories are combined into a Species Protection Index (SPI). The SPI is a number between 1 and 0, where 1 means that all species are Well Protected (meeting their conservation targets within the protected area network), while 0 means that all species are Poorly Protected (meeting between 0 and 5% of their conservation targets.
 
 Species Protection Index is now also a [component indicator for Target 3](https://www.cbd.int/gbf/targets/3) of the CBD's Kunming-Montreal Global Biodiversity Framework.
 
-## Calculating the Protection Level indicator for plants
+## Calculating the protection level indicator for plants
 
-South Africa has more than 20 000 indigenous plant species, which makes calculating a comprehensive Protection Level indicator challenging. The plant Protection Level indicator therefore follows a sampled approach, similar to what is recommended for calculating a Red List Index for highly speciose taxon groups[^7]. A random sample of 900 species were selected from the indigenous flora, with the same sample used to calculate South Africa's national plant Red List Index as well as the plant Species Protection Level indicator.
+South Africa has more than 20 000 indigenous plant species, which makes calculating a comprehensive Protection Level indicator challenging. The plant protection level indicator therefore follows a sampled approach, similar to what is recommended for calculating a Red List Index for highly speciose taxon groups[^7]. A random sample of 900 species were selected from the indigenous flora, with the same sample used to calculate South Africa's national plant Red List Index as well as the plant species protection level indicator.
 
 [^7]: Baillie, J. E. M., B. Collen, R. Amin, H. R. Akcakaya, S. H. M. Butchart, N. Brummitt, T. R. Meagher, M. Ram, C. Hilton-Taylor, and G. M. Mace. 2008. Toward monitoring global biodiversity. Conservation Letters 1:18-26.
 
-This repository documents the process of calculating Protection Level for the plant sample, including data preparation steps. The process is coded in R, and scripts for each step in the process are stored in the folder [workflow](workflow/). Further technical documentation on setting conservation targets for plants, the application of protected area effectiveness in the assessment, and controlling for non-genuine Protection Level changes when the indicator is calculated across multiple time points can be found at (link still to be added).
+This repository documents the process of calculating protection level for the plant sample, including data preparation steps. The process is coded in R, and scripts for each step in the process are stored in the folder [workflow](workflow/). Further technical documentation on setting conservation targets for plants, the application of protected area effectiveness in the assessment, and controlling for non-genuine protection level changes when the indicator is calculated across multiple time points can be found at (link still to be added).
 
 ## Recommended citation
 
-Von Staden, L. 2025. SANBI-NBA Plant Protection Level indicator \[Source code\]. GitHub Repository available at <https://github.com/SANBI-NBA/plant-protection-level>.
+Von Staden, L. 2025. SANBI-NBA Plant protection level indicator \[Source code\]. GitHub repository available at <https://github.com/SANBI-NBA/plant-protection-level>.
 
 ## References
