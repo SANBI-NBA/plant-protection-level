@@ -1,1 +1,77 @@
 # Calculating the protection level indicator {#sec-calculations}
+
+## Protection level category
+
+A species' protection level is calculated in five steps:
+
+1.  Each protected area's contribution (C) to the species' conservation target is calculated, according to the relevant assessment method (Figures [-@fig-area-method], [-@fig-population-method] and [-@fig-locality-method]).
+2.  Protected area effectiveness penalty factors (E) are applied where protected areas are rated as fair or poor (C x E).
+3.  The effectiveness-adjusted protected area contributions are summed.
+4.  The species' protection score is calculated as a percentage of the species' conservation target by dividing the summed effectiveness-adjusted protected area contributions by the target.
+5.  The protection score determines the protection level category assigned to the species (@tbl-plcats).
+
+The formula for calculating species *j*'s protection score is therefore as follows:
+
+$$
+S_j = \frac{\displaystyle\sum_{i=1}^n C_i \cdot E_i}{T_j} \cdot 100
+$$
+
+Where
+
+-   S~*j*~ is the protection score of species *j*
+-   C~*i*~ is the contribution of protected area *i* to species *j*'s conservation target
+-   E~*i*~ is the species-specific effectiveness penalty factor for protected area *i*
+-   T~*j*~ is the conservation target of species *j*
+
+The protection level indicator is expressed as the proportion of the plant species sample in each protection level category (@fig-pl-barchart):
+
+```{r}
+#| label: fig-pl-barchart
+#| fig-cap: Example illustration of the protection level indicator
+
+library(nbaR)
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+dat <- read.csv("plant-pl-assessment-sample-data.csv", header = TRUE)
+
+dat <- dat %>% select(protectioncategory_2024) %>% 
+                  mutate(taxon = "Plants") %>% 
+                  group_by(taxon, protectioncategory_2024) %>% 
+                  summarise(number_of_species = n()) %>% 
+                  pivot_wider(names_from = protectioncategory_2024, values_from = number_of_species) %>% 
+                  ungroup()
+
+nba_plot(dat, taxon, 2:5, CHRT = "bar", NUM = TRUE, LAB = "Percentage of species", SAVE = NULL) +
+        theme(legend.position = "bottom")
+
+
+```
+
+## Species Protection Index
+
+The SPI is calculated by applying a weight to each protection level category (@tbl-index-weights). Category weights are then combined into an index score similar to the calculation of the Red List Index. [@baillie2008toward] The index is calculated for each time point in the assessment, to provide a time series indicating trends in species protection over time.
+
+| Protection level category | Index weight |
+|---------------------------|:------------:|
+| Not Protected             |      3       |
+| Poorly Protected          |      2       |
+| Moderately Protected      |      1       |
+| Well Protected            |      0       |
+
+: SPI weights for protection level categories {#tbl-index-weights}
+
+The formula for calculating the SPI for a time point *t* is as follows:
+
+$$
+SPI_t = 1 - \frac{\displaystyle\sum_s W_{c(t,s)}}{W_{NP} \cdot N}
+$$
+
+where:
+
+-   W~*c(t,s)*~ is the weight for protection category *c* at time *t* for species *s*
+-   W~*NP*~ is the weight for the Not Protected category
+-   N is the number of species assessed
+
+This formula returns a value between 0 and 1, where 0 means all species are Not Protected and 1 means all species are Well Protected. The index value increases when species protection is improved enough to cross a protection level category threshold. Improvements can be achieved either through protected area expansion, or improvements in protected area effectiveness. The index value decreases when protected areas are deproclaimed, there is significant ongoing loss of natural areas inside protected areas, or when protected area effectiveness decline.
