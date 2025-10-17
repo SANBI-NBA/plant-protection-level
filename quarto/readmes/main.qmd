@@ -11,7 +11,7 @@ target-dir: ..
 editor: visual
 ---
 
-## Introduction to the Protection Level indicator
+## Introduction to the protection level indicator
 
 Protection level is one of the headline indicators of South Africa's [National Biodiversity Assessment](https://www.sanbi.org/biodiversity/building-knowledge/biodiversity-monitoring-assessment/national-biodiversity-assessment/) (NBA), a report on the status of the country's biodiversity. The report is produced by the South African National Biodiversity Institute (SANBI), to support national decision-making on environmental policy, as well as reporting on South Africa's commitments to the Convention on Biological Diversity (CBD).
 
