@@ -1,15 +1,15 @@
 # Plant Protection Level
 Lize von Staden
-2025-10-15
+2025-10-17
 
-- [Introduction to the Protection Level
+- [Introduction to the protection level
   indicator](#introduction-to-the-protection-level-indicator)
 - [Calculating the protection level indicator for
   plants](#calculating-the-protection-level-indicator-for-plants)
 - [Recommended citation](#recommended-citation)
 - [References](#references)
 
-## Introduction to the Protection Level indicator
+## Introduction to the protection level indicator
 
 Protection level is one of the headline indicators of South Africa’s
 [National Biodiversity
@@ -79,7 +79,8 @@ folder [workflow](workflow/). Further technical documentation on setting
 conservation targets for plants, the application of protected area
 effectiveness in the assessment, and controlling for non-genuine
 protection level changes when the indicator is calculated across
-multiple time points can be found at (link still to be added).
+multiple time points can be found at
+[10.6084/m9.figshare.30135625](https://figshare.com/articles/online_resource/Technical_Report/30135625?file=58824784).
 
 ## Recommended citation
 

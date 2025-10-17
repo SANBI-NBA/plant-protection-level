@@ -1,0 +1,14 @@
+---
+title: "Quarto content"
+author: "Lize von Staden"
+date: last-modified
+format: 
+ gfm:
+  toc: true
+reference-location: document
+tbl-cap-location: top
+target-dir: ..
+editor: visual
+---
+
+This folder contains Quarto (.qmd) files for rendering the Technical Report associated with this repo. Quarto is also used to generate the READMEs for each folder.
