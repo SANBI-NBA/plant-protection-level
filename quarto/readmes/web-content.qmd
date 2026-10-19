@@ -1,0 +1,14 @@
+---
+title: "NBA website content"
+author: "Lize von Staden"
+date: last-modified
+format: 
+ gfm:
+  toc: true
+reference-location: document
+tbl-cap-location: top
+target-dir: ..
+editor: visual
+---
+
+R scripts for producing figures used in the plant page of the NBA website.

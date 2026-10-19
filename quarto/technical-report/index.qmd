@@ -8,8 +8,7 @@ This technical report is a companion to the plant protection level indicator sou
 
 Hlengiwe Mtshali (SANBI Threatened Species Unit) assisted with data extraction from the plant Red List assessment database. Dewidine van der Colff (SANBI Threatened Species Unit) and Sediqa Khatieb (SANBI NBA Unit) prepared the spatial data on protected areas. Dewidine also co-ordinated the expert contributions on protected area effectiveness. Officials from SANParks, CapeNature, Mpumalanga Tourism and Parks Agency, Eastern Cape Parks and Tourism Agency, Ezemvelo KZN Wildlife, Limpopo Department of Economic Development, Environment and Tourism, Gauteng Department of Agriculture and Rural Development, Northern Cape Department of Agriculture, Land Reform and Rural Development, and North West Department of Economic Development, Environment, Conservation and Tourism provided inputs on protected area effectiveness. Andrew Skowno (SANBI NBA Unit) prepared the land cover time series and spatial data on alien invasive plants used to supplement protected area effectiveness scores.
 
-Data providers:
-South Africa's national Department of Forestry, Fisheries and the Environment, Biodiversity GIS (South African National Biodiversity Institute), iNaturalist, Alanna Rebelo (Stellenbosch University), Institute of Natural Resources, Geonest (Pty) Ltd, Andrew Wannenburgh (Working for Water Programme) and the MapWAPS Project.
+Data providers: South Africa's national Department of Forestry, Fisheries and the Environment, Biodiversity GIS (South African National Biodiversity Institute), iNaturalist, Alanna Rebelo (Stellenbosch University), Institute of Natural Resources, Geonest (Pty) Ltd, Andrew Wannenburgh (Working for Water Programme) and the MapWAPS Project.
 
 ## Recommended citation {.unnumbered}
 

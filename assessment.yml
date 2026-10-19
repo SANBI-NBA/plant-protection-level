@@ -1,0 +1,256 @@
+# ============================================================
+# Indicator assessment metadata
+# ============================================================
+# This file records the code, input data and outputs associated
+# with a specific indicator assessment.
+#
+# Update this file for each assessment and commit it with the
+# corresponding code release.
+#
+# As this is YAML format, be sure to maintain indentations to
+# maintain code functionality.
+#
+# ============================================================
+
+
+# ------------------------------------------------------------
+# Assessment information
+# ------------------------------------------------------------
+
+assessment:
+
+  # Stable identifier for this assessment.
+  # Use a convention that will remain unique across assessments.
+  id: "plant-protection-level-2025-10-17"
+  
+  # Name of the indicator being assessed.
+  indicator: "Plant protection level"
+
+ # Purpose or reporting process for which the assessment
+  # was undertaken.
+  # Examples:
+  # - National Biodiversity Assessment
+  # - CBD National Report
+  # - SDG reporting
+  # - NBSAP progress assessment
+  assessment_for: "Fourth National Biodiversity Assessment 2025"
+  
+  # Date on which the assessment was completed.
+  assessment_date: "2025-10-17"
+  
+  # Location where the official assessment outputs are published.
+  # This may be a DOI, institutional repository, website,
+  # database record or report URL.
+  published_at: "https://nba.sanbi.org.za/content/species/sp_plants.html#protection-level"
+  
+  # Optional notes explaining anything unusual about this
+  # assessment or changes from the previous assessment.
+  notes: 
+  
+# ------------------------------------------------------------
+# Code version
+# ------------------------------------------------------------
+
+code:
+
+  # Repository containing the analytical workflow.
+  repository: "https://github.com/SANBI-NBA/plant-protection-level"
+
+  # Git release/tag used for this assessment.
+  release_tag: "nba-2025-v1"
+
+  # Optional version of the assessment method, where this is
+  # distinct from the software/code version. Update method version
+  # when there are substantial changes to the way the indicator is computed.
+  method_version: "1.0"
+  
+# ------------------------------------------------------------
+# Input data
+# ------------------------------------------------------------
+
+input_data:
+  
+    # Give each input dataset a unique ID. Repeat this block
+    # for each input dataset
+    - id: "dataset-2025-01"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "South African National Plant Red List"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "rl-data-2025.csv"
+      
+      # Location of the input data file
+      location: "NBA data repository/plant_pl_assessment/rl-data-snapshots"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-07-08"
+
+    - id: "dataset-2025-02"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "NBA protected areas layer"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "Protected_areas.gdb"
+      
+      # Location of the input data file
+      location: "NBA data repository/protected_areas"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-05-27"
+
+    - id: "dataset-2025-03"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "Plant protection database"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "db-backup-2026-09-21.sql"
+      
+      # Location of the input data file
+      location: "NBA data repository/plant_pl_assessment/database"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2026-09-21"
+
+    - id: "dataset-2025-04"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "Sampled plants suitable habitat maps"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "multiple geotif files"
+      
+      # Location of the input data file
+      location: "NBA data repository/plant_pl_assessment/habitat-models/maps"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-07-23"
+
+    - id: "dataset-2025-05"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "iNaturalist"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "inaturalist-observations-2025.csv"
+      
+      # Location of the input data file
+      location: "NBA data repository/plant_pl_assessment/occurrence-records-snapshots"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-07-04"
+      
+    - id: "dataset-2025-06"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "South African National Plant Red List"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "rl-occurrence-records-2025.csv"
+      
+      # Location of the input data file
+      location: "NBA data repository/plant_pl_assessment/occurrence-records-snapshots"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-07-04"
+      
+    - id: "dataset-2025-07"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "Plant Survey App"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "plant-survey-app-data-2025.csv"
+      
+      # Location of the input data file
+      location: "NBA data repository/plant_pl_assessment/occurrence-records-snapshots"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-07-02"
+
+    - id: "dataset-2025-08"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "National 7-class land cover"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "nlc2018_7class.tif"
+      
+      # Location of the input data file
+      location: "NBA data repository/landcover"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-05-27"
+
+    - id: "dataset-2025-09"
+    
+      # Provide the name of the data source - a database or spatial layer that is maintained
+      # independently from the assessment where you have obtained your input data from
+      data_source: "National 7-class land cover"
+      
+      # File extracted from the source dataset and used in this assessment
+      file: "nlc2022_7class.tif"
+      
+      # Location of the input data file
+      location: "NBA data repository/landcover"
+      
+      # Date on which the assessment input file was extracted
+      # from the source dataset
+      extraction_date: "2025-05-27"
+
+
+# ------------------------------------------------------------
+# Assessment outputs
+# ------------------------------------------------------------
+
+outputs:
+
+  # Repeat this code block for each output connected to this assessment
+  - id: "assessment-2025-01"
+
+    # Description of the output.
+    name: "Indicator assessment results"
+
+    # Filename produced by the assessment workflow.
+    file: "plant-pl-assessment-2018.csv"
+
+    # Location of the assessment output.
+    location: "NBA data repository/plant_pl_assessment/assessments"
+
+    # Optional publication location where this particular output
+    # can be accessed externally.
+    published_at: "https://figshare.com/articles/dataset/South_African_National_Biodiversity_Assessment_Species_Summary_Status_Checklist_2025/31650961/3?file=65637126"
+
+  - id: "assessment-2025-02"
+
+    # Description of the output.
+    name: "Indicator assessment results"
+
+    # Filename produced by the assessment workflow.
+    file: "plant-pl-assessment-2025.csv"
+
+    # Location of the assessment output.
+    location: "NBA data repository/plant_pl_assessment/assessments"
+
+    # Optional publication location where this particular output
+    # can be accessed externally.
+    published_at: "https://figshare.com/articles/dataset/South_African_National_Biodiversity_Assessment_Species_Summary_Status_Checklist_2025/31650961/3?file=65637126"
+    
